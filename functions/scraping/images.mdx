@@ -1,0 +1,197 @@
+---
+title: "GETIMG"
+description: "Extract all image URLs from a webpage"
+---
+
+## Syntax
+
+```
+=GETIMG(url)
+```
+
+## Parameters
+
+<ParamField path="url" type="string | cell reference" required>
+  The URL of the webpage to extract images from.
+</ParamField>
+
+## Returns
+
+A vertical list of image URLs found on the page.
+
+## Example
+
+```
+=GETIMG("https://example.com/gallery")
+```
+
+**Result:**
+| Cell | Image URL |
+|------|-----------|
+| A1 | https://example.com/images/photo1.jpg |
+| A2 | https://example.com/images/photo2.png |
+| A3 | https://cdn.example.com/banner.webp |
+
+## Features
+
+- Extracts URLs from `src` attributes
+- Handles `srcset` for responsive images (selects largest)
+- Supports `data-src` for lazy-loaded images
+- Resolves relative URLs to absolute
+- Maximum 1000 images per page
+
+## Use Cases
+
+### Content Inventory
+
+Catalog all images on a website:
+
+| URL | Images |
+|-----|--------|
+| `https://site.com/page1` | `=GETIMG(A1)` |
+| `https://site.com/page2` | `=GETIMG(A2)` |
+
+### Competitor Research
+
+Analyze competitor visual content:
+
+```
+=GETIMG("https://competitor.com/products")
+```
+
+### Asset Auditing
+
+Check image usage across pages:
+
+```
+=GETIMG(A1)
+```
+
+### Image Analysis with AI
+
+Combine with GPTV to analyze discovered images:
+
+```
+=GPTV(GETIMG(A1), "Describe this image")
+```
+
+## Handling Image Types
+
+GETIMG extracts URLs for all standard image formats:
+
+| Format | Extension |
+|--------|-----------|
+| JPEG | .jpg, .jpeg |
+| PNG | .png |
+| GIF | .gif |
+| WebP | .webp |
+| SVG | .svg |
+| BMP | .bmp |
+
+## Responsive Images
+
+For images with `srcset`, GETIMG automatically selects the largest available size.
+
+```html
+<!-- Source HTML -->
+<img srcset="small.jpg 480w, medium.jpg 800w, large.jpg 1200w">
+```
+
+**Result:** Returns `large.jpg` (the largest option)
+
+## Lazy-Loaded Images
+
+GETIMG handles common lazy-loading patterns:
+
+- `data-src` attribute
+- `data-srcset` attribute
+- `data-lazy-src` attribute
+
+## Displaying Images in Sheets
+
+Use Google Sheets' IMAGE function to display extracted images:
+
+```
+=IMAGE(B1)
+```
+
+Where B1 contains an image URL from GETIMG.
+
+### Creating an Image Gallery
+
+| A (URL) | B (Image URLs) | C (Display) |
+|---------|----------------|-------------|
+| `https://...` | `=GETIMG(A1)` | `=IMAGE(B1)` |
+
+## Filtering Images
+
+### By File Type
+
+Use FILTER to get only specific image types:
+
+```
+=FILTER(GETIMG(A1), REGEXMATCH(GETIMG(A1), "\.jpg$"))
+```
+
+### By Size (filename patterns)
+
+```
+=FILTER(GETIMG(A1), REGEXMATCH(GETIMG(A1), "large|full|original"))
+```
+
+## Tips for Better Results
+
+### 1. Use Gallery or Product Pages
+
+Pages designed to display images yield better results:
+
+```
+// Better
+=GETIMG("https://store.com/products/category")
+
+// Less useful
+=GETIMG("https://store.com/about")
+```
+
+### 2. Check for CDN URLs
+
+Many sites serve images from CDNs with different domains:
+
+```
+// Results may include:
+// - https://example.com/images/...
+// - https://cdn.example.com/...
+// - https://img.cloudprovider.com/...
+```
+
+### 3. Handle Dynamic Content
+
+For sites with infinite scroll or lazy loading, only initially loaded images are captured.
+
+## Limitations
+
+- Maximum 1000 images per page
+- JavaScript-rendered images may not be captured
+- Some sites serve images with authentication
+- Background images in CSS are not extracted
+- Data URIs (base64) are not included
+
+## Error Handling
+
+```
+=IFERROR(GETIMG(A1), "Could not extract images")
+```
+
+### Common Issues
+
+| Issue | Cause | Solution |
+|-------|-------|----------|
+| Empty result | No images or dynamic loading | Try different page |
+| Broken URLs | Relative paths not resolved | Usually resolved automatically |
+| Missing images | CSS backgrounds | Use GETSELECTOR for specific elements |
+
+## Related Functions
+
+- [GPTV](/functions/ai/gptv) - Analyze extracted images with AI
+- [GETSELECTOR](/functions/scraping/selectors) - Extract specific image elements
+- [VISIT](/functions/scraping/visit) - Get page content

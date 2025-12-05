@@ -1,0 +1,70 @@
+---
+title: "Update Current User"
+api: "PATCH /users/me"
+description: "Update the authenticated user's profile"
+---
+
+## Request
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token from Supabase Auth
+</ParamField>
+
+<ParamField body="full_name" type="string">
+  Updated display name
+</ParamField>
+
+## Response
+
+<ResponseField name="user" type="object">
+  Updated user object (same structure as GET /users/me)
+</ResponseField>
+
+## Example
+
+<CodeGroup>
+```bash cURL
+curl -X PATCH "https://api.sheetmagic.ai/users/me" \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json" \
+  -d '{"full_name": "Jane Doe"}'
+```
+
+```javascript JavaScript
+const response = await fetch('https://api.sheetmagic.ai/users/me', {
+  method: 'PATCH',
+  headers: {
+    'Authorization': 'Bearer <token>',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    full_name: 'Jane Doe'
+  })
+});
+const data = await response.json();
+```
+</CodeGroup>
+
+## Response Example
+
+```json
+{
+  "user": {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "email": "user@example.com",
+    "full_name": "Jane Doe",
+    "is_admin": false,
+    "stripe_customer_id": "cus_abc123",
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-12-04T12:00:00Z"
+  }
+}
+```
+
+## Errors
+
+| Status | Description |
+|--------|-------------|
+| 400 | Invalid request body |
+| 401 | Invalid or missing token |
+| 500 | Server error |

@@ -1,0 +1,218 @@
+---
+title: "AIVIDEO"
+description: "Generate videos from text descriptions using AI"
+---
+
+## Syntax
+
+```
+=AIVIDEO(description, [context])
+```
+
+## Parameters
+
+<ParamField path="description" type="string" required>
+  A text description of the video to generate.
+</ParamField>
+
+<ParamField path="context" type="string | cell reference">
+  Optional additional context to append to the description.
+</ParamField>
+
+## Returns
+
+A Google Drive URL to the generated video file (MP4).
+
+## Requirements
+
+- OpenAI or Gemini API key configured
+- For OpenAI Sora: Organization verification may be required
+- Google Drive access for file storage
+
+## Available Models
+
+### OpenAI Sora
+
+| Model | Description |
+|-------|-------------|
+| Sora 2 | Standard video generation |
+| Sora 2 Pro | Higher quality output |
+
+### Google Veo
+
+| Model | Description |
+|-------|-------------|
+| Veo 3 | Standard video generation |
+| Veo 3 Fast | Faster generation, standard quality |
+| Veo 3.1 Preview | Latest preview model |
+
+Configure your preferred model in [Settings](/guides/configuration).
+
+## Examples
+
+### Basic Video Generation
+
+```
+=AIVIDEO("A person walking through a autumn forest, leaves falling, cinematic")
+```
+
+**Result:** `https://drive.google.com/file/d/vid123.../view`
+
+### With Context
+
+```
+=AIVIDEO("Product demonstration for ", A1)
+```
+
+Generates a video based on the product description in cell A1.
+
+### Detailed Scene Description
+
+```
+=AIVIDEO("Close-up of coffee being poured into a white ceramic cup, steam rising, warm morning light, slow motion")
+```
+
+## Writing Effective Prompts
+
+### Include Visual Details
+
+<CodeGroup>
+```text Good
+=AIVIDEO("Aerial drone shot of a coastal city at sunset, golden hour lighting, waves crashing against rocky shore, seagulls flying")
+```
+
+```text Less Effective
+=AIVIDEO("city at beach")
+```
+</CodeGroup>
+
+### Specify Camera Movement
+
+```
+=AIVIDEO("Slow zoom into a flower blooming, macro lens style, time-lapse effect")
+```
+
+### Define Mood and Atmosphere
+
+```
+=AIVIDEO("Rainy night in Tokyo, neon lights reflecting on wet streets, moody cyberpunk atmosphere")
+```
+
+## Use Cases
+
+### Marketing Content
+
+<CodeGroup>
+```text Product Showcase
+=AIVIDEO("360-degree rotation of a modern smartwatch, white background, studio lighting")
+```
+
+```text Brand Video
+=AIVIDEO("Abstract motion graphics, flowing shapes in brand colors, professional corporate style")
+```
+</CodeGroup>
+
+### Social Media
+
+<CodeGroup>
+```text Background Loop
+=AIVIDEO("Seamless loop of ocean waves on a beach, relaxing, 4K quality")
+```
+
+```text Attention Grabber
+=AIVIDEO("Dynamic text animation, bold typography, energetic motion")
+```
+</CodeGroup>
+
+### Presentations
+
+<CodeGroup>
+```text Intro Animation
+=AIVIDEO("Professional logo reveal animation, minimalist style, smooth transitions")
+```
+
+```text Concept Visualization
+=AIVIDEO("Data visualization coming to life, charts and graphs animating, modern infographic style")
+```
+</CodeGroup>
+
+## Video Specifications
+
+### Duration
+
+| Provider | Typical Duration |
+|----------|-----------------|
+| OpenAI Sora | 5-20 seconds |
+| Google Veo | 4-8 seconds |
+
+### Resolution
+
+- Default: 720p or 1080p depending on model
+- Aspect ratios: 16:9 (landscape), 9:16 (portrait)
+
+## Processing Time
+
+Video generation takes longer than other AI functions:
+
+| Model Type | Typical Wait |
+|------------|--------------|
+| Standard | 30-60 seconds |
+| High quality | 1-3 minutes |
+
+<Note>
+Video generation runs asynchronously. Your cell will update when complete.
+</Note>
+
+## Working with Generated Videos
+
+### Viewing
+
+Click the Google Drive link to play the video in your browser.
+
+### Downloading
+
+From Google Drive:
+1. Click the **Download** button
+2. Select your preferred format
+
+### Embedding
+
+Use the Drive URL to embed videos in presentations or websites.
+
+## Tips for Better Results
+
+### 1. Start Simple
+
+Begin with straightforward scenes before attempting complex compositions:
+
+```
+=AIVIDEO("A single candle flame flickering in darkness")
+```
+
+### 2. Reference Film Techniques
+
+Use cinematography terms for better results:
+
+```
+=AIVIDEO("Tracking shot following a runner through a park, shallow depth of field")
+```
+
+### 3. Be Specific About Timing
+
+```
+=AIVIDEO("Slow motion water droplet falling into a still pond, ripples expanding")
+```
+
+## Limitations
+
+- Generation can take 1-5 minutes
+- Video length is limited (typically under 20 seconds)
+- Complex scenes may not render as expected
+- Some content types are restricted
+- Requires significant API credits
+
+## Related Functions
+
+- [AIIMAGE](/functions/ai/aiimage) - Generate still images
+- [AISPEECH](/functions/ai/aispeech) - Generate audio narration
+- [AITEXT](/functions/ai/aitext) - Generate scripts and descriptions

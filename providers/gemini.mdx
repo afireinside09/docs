@@ -1,0 +1,174 @@
+---
+title: "Google Gemini"
+description: "Gemini models for text generation, images, and video"
+---
+
+## Overview
+
+Google Gemini offers fast, capable AI models that integrate well with the Google ecosystem. Gemini excels at quick responses and multimodal tasks.
+
+## Getting an API Key
+
+<Steps>
+  <Step title="Go to Google AI Studio">
+    Visit [aistudio.google.com](https://aistudio.google.com).
+  </Step>
+  <Step title="Sign In">
+    Sign in with your Google account.
+  </Step>
+  <Step title="Get API Key">
+    Click "Get API Key" and create a new key.
+  </Step>
+  <Step title="Copy Key">
+    Copy the API key to use in SheetMagic.
+  </Step>
+</Steps>
+
+## Text Models
+
+| Model | Description | Best For |
+|-------|-------------|----------|
+| gemini-2.0-flash | Fast, capable | General tasks |
+| gemini-2.5-flash | Latest flash model | Quick responses |
+| gemini-2.5-flash-exp | Experimental | Testing new features |
+| gemini-2.5-pro | Premium model | Complex tasks |
+| gemini-3-pro | Next generation | Advanced capabilities |
+
+### Model Characteristics
+
+**Gemini Flash Models:**
+- Optimized for speed
+- Lower latency
+- Cost-effective
+- Good for high-volume tasks
+
+**Gemini Pro Models:**
+- Higher quality output
+- Better at complex reasoning
+- Larger context windows
+- Premium pricing
+
+## Image Generation
+
+### Gemini 2.5 Flash Image
+
+Generate images using Gemini's image model:
+
+```
+=AIIMAGE("A futuristic cityscape at night, neon lights, cyberpunk style")
+```
+
+**Supported Aspect Ratios:**
+
+| Ratio | Use Case |
+|-------|----------|
+| 1:1 | Square, social media |
+| 2:3 | Portrait photos |
+| 3:2 | Landscape photos |
+| 3:4 | Standard portrait |
+| 4:3 | Standard landscape |
+| 4:5 | Instagram portrait |
+| 5:4 | Large format |
+| 9:16 | Vertical video/stories |
+| 16:9 | Widescreen |
+| 21:9 | Ultrawide |
+
+## Video Generation
+
+### Veo 3 Models
+
+Generate videos with Veo:
+
+```
+=AIVIDEO("Ocean waves crashing on rocks, slow motion, dramatic lighting")
+```
+
+| Model | Description |
+|-------|-------------|
+| veo-3.0-generate-001 | Standard quality |
+| veo-3.0-fast-generate-001 | Faster generation |
+| veo-3.1-generate-preview | Latest preview |
+
+**Video Specifications:**
+
+| Setting | Options |
+|---------|---------|
+| Aspect Ratio | 16:9, 9:16 |
+| Duration | 4, 6, 8 seconds |
+| Resolution | 720p, 1080p |
+
+## Configuration
+
+### Temperature
+
+Gemini supports temperature from 0 to 2:
+
+| Value | Behavior |
+|-------|----------|
+| 0.0 - 0.5 | Focused, consistent |
+| 0.7 | Default, balanced |
+| 1.0 - 2.0 | Creative, varied |
+
+### Max Tokens
+
+Default: 2048 tokens (higher than most providers)
+
+| Task | Recommended |
+|------|-------------|
+| Short responses | 512 |
+| Standard content | 2048 |
+| Long documents | 4096+ |
+
+## Use Cases
+
+### Fast Content Generation
+
+Gemini Flash is ideal for high-volume tasks:
+
+```
+=AITEXT("Rewrite this product title for SEO: " & A1)
+```
+
+### Google Workspace Integration
+
+Works seamlessly with Google Sheets, Drive, and other Google services.
+
+### Multilingual Content
+
+Strong support for multiple languages:
+
+```
+=AITEXT("Translate to Japanese: " & A1)
+```
+
+## Advantages
+
+- **Speed**: Flash models are among the fastest available
+- **Cost**: Competitive pricing, especially for Flash models
+- **Integration**: Native Google ecosystem support
+- **Context**: Large context windows for longer documents
+- **Multimodal**: Text, images, and video in one provider
+
+## Limitations
+
+- No speech synthesis
+- No vision analysis (GPTV)
+- Video generation limited to short clips
+- Some features require Google Cloud billing
+
+## Pricing
+
+Gemini offers:
+- Free tier with rate limits
+- Pay-as-you-go for production use
+
+Check [Google AI Pricing](https://ai.google.dev/pricing) for details.
+
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| Rate limited | Reduce request frequency or enable billing |
+| Model unavailable | Check region availability |
+| Video generation fails | Verify account has video access |
+| API key invalid | Regenerate in Google AI Studio |

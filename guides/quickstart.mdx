@@ -1,0 +1,121 @@
+---
+title: "Quick Start"
+description: "Get up and running with SheetMagic in 5 minutes"
+---
+
+## Your First AI Formula
+
+After [installing SheetMagic](/guides/installation), you're ready to use AI in your spreadsheet.
+
+### Generate Text
+
+Type this formula in any cell:
+
+```
+=AITEXT("Write a product description for wireless earbuds")
+```
+
+The AI will generate a professional product description directly in your cell.
+
+### Generate a List
+
+Create a vertical list of items:
+
+```
+=AILIST("5 marketing strategies for a new app")
+```
+
+Each strategy appears in a separate cell below the formula.
+
+### Use Cell References
+
+Combine AI with your existing data:
+
+```
+=AITEXT("Summarize this article: " & A1)
+```
+
+The AI will summarize whatever content is in cell A1.
+
+## Common Use Cases
+
+### Content Generation
+
+<CodeGroup>
+```text Blog Ideas
+=AILIST("10 blog post ideas about sustainable living")
+```
+
+```text Social Media Posts
+=AITEXT("Write a Twitter post announcing a product launch for: " & A1)
+```
+
+```text Email Templates
+=AITEXT("Write a professional follow-up email for a sales meeting")
+```
+</CodeGroup>
+
+### Data Analysis
+
+<CodeGroup>
+```text Sentiment Analysis
+=AITEXT("Analyze the sentiment of this review: " & A1)
+```
+
+```text Data Extraction
+=AITEXT("Extract the email address from this text: " & A1)
+```
+
+```text Categorization
+=AITEXT("Categorize this product into one of these categories: Electronics, Clothing, Food, Other. Product: " & A1)
+```
+</CodeGroup>
+
+### Web Research
+
+<CodeGroup>
+```text Page Content
+=VISIT("https://example.com/article")
+```
+
+```text Search Results
+=SERP("best project management tools 2024", 5)
+```
+
+```text Page Metadata
+=GETMETATITLE("https://example.com")
+```
+</CodeGroup>
+
+## Working with Multiple Cells
+
+### Process Multiple Rows
+
+1. Enter your data in column A
+2. Write your formula in B1: `=AITEXT("Translate to Spanish: " & A1)`
+3. Drag the formula down to process all rows
+
+### Bulk Operations
+
+For large datasets, SheetMagic processes formulas asynchronously. Results appear as each request completes.
+
+<Tip>
+Start with a small batch to estimate processing time before running on thousands of rows.
+</Tip>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="AI Functions Reference" icon="wand-magic-sparkles" href="/functions/ai/overview">
+    Learn about all available AI functions.
+  </Card>
+  <Card title="Configure Providers" icon="gear" href="/guides/configuration">
+    Set up your preferred AI providers.
+  </Card>
+  <Card title="Web Scraping" icon="globe" href="/functions/scraping/overview">
+    Extract data from websites.
+  </Card>
+  <Card title="Advanced Usage" icon="graduation-cap" href="/functions/ai/aitext">
+    Master advanced prompting techniques.
+  </Card>
+</CardGroup>

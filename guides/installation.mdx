@@ -1,0 +1,82 @@
+---
+title: "Installation"
+description: "Install the SheetMagic add-on for Google Sheets"
+---
+
+## Install from Google Workspace Marketplace
+
+<Steps>
+  <Step title="Open Google Sheets">
+    Go to [Google Sheets](https://sheets.google.com) and open a new or existing spreadsheet.
+  </Step>
+  <Step title="Access Add-ons">
+    Click **Extensions** in the menu bar, then select **Add-ons > Get add-ons**.
+  </Step>
+  <Step title="Search for SheetMagic">
+    In the Google Workspace Marketplace, search for "SheetMagic" and click on the add-on.
+  </Step>
+  <Step title="Install">
+    Click **Install** and grant the required permissions when prompted.
+  </Step>
+</Steps>
+
+## Required Permissions
+
+SheetMagic requires the following permissions to function:
+
+| Permission | Purpose |
+|------------|---------|
+| View and manage spreadsheets | Read cell values and write AI-generated results |
+| Connect to external services | Communicate with AI providers and web scraping proxy |
+| View and manage files in Google Drive | Store generated images, audio, and video files |
+| Display and run web content | Show the settings sidebar and configuration UI |
+
+<Note>
+SheetMagic only accesses cells that contain SheetMagic formulas. Your data is processed securely and never stored on our servers.
+</Note>
+
+## First-Time Setup
+
+After installation, complete the initial setup:
+
+<Steps>
+  <Step title="Open SheetMagic">
+    Click **Extensions > SheetMagic > Start SheetMagic** to begin setup.
+  </Step>
+  <Step title="Enter License Key">
+    Enter your SheetMagic license key. You can purchase a license from [sheetmagic.ai](https://sheetmagic.ai) or redeem an AppSumo code.
+  </Step>
+  <Step title="Authorize OAuth">
+    Grant SheetMagic permission to update cells on your behalf. This enables async processing for AI functions.
+  </Step>
+  <Step title="Add API Key">
+    Open **Extensions > SheetMagic > Manage AI API Keys** and add your API key for at least one AI provider.
+  </Step>
+</Steps>
+
+## Verify Installation
+
+Test your installation with a simple formula:
+
+```
+=AITEXT("Say hello in 3 different languages")
+```
+
+If configured correctly, the cell will display AI-generated greetings after a few seconds.
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Add-on doesn't appear in Extensions menu">
+    Refresh the page or close and reopen the spreadsheet. If the issue persists, try reinstalling the add-on.
+  </Accordion>
+  <Accordion title="License key not accepted">
+    Verify that you're entering the license key exactly as provided. License keys are case-sensitive. Contact support if issues persist.
+  </Accordion>
+  <Accordion title="OAuth authorization failed">
+    Ensure you're signed into the correct Google account. Try clearing browser cookies and re-authorizing.
+  </Accordion>
+  <Accordion title="Functions return errors">
+    Check that your API key is valid and has sufficient credits. Open the settings sidebar to verify your configuration.
+  </Accordion>
+</AccordionGroup>

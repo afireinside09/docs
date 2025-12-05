@@ -1,0 +1,175 @@
+---
+title: "VISIT"
+description: "Extract clean text content from any webpage"
+---
+
+## Syntax
+
+```
+=VISIT(url)
+```
+
+## Parameters
+
+<ParamField path="url" type="string | cell reference" required>
+  The URL of the webpage to extract content from.
+</ParamField>
+
+## Returns
+
+Plain text content extracted from the webpage, with HTML markup removed. Maximum 50,000 characters.
+
+## Examples
+
+### Basic Usage
+
+```
+=VISIT("https://example.com/article")
+```
+
+**Result:** The main text content of the article, cleaned of HTML tags.
+
+### From Cell Reference
+
+```
+=VISIT(A1)
+```
+
+Extracts content from the URL in cell A1.
+
+## Features
+
+- Automatically removes HTML, CSS, and JavaScript
+- Extracts main content area when possible
+- Handles redirects (up to 5 redirects)
+- Caches results for 30 minutes per user
+
+## Use Cases
+
+### Content Aggregation
+
+Collect content from multiple sources:
+
+| A (URLs) | B (Content) |
+|----------|-------------|
+| `https://site1.com/article` | `=VISIT(A1)` |
+| `https://site2.com/post` | `=VISIT(A2)` |
+
+### AI-Powered Analysis
+
+Combine with AITEXT for intelligent processing:
+
+<CodeGroup>
+```text Summarization
+=AITEXT("Summarize in 100 words: " & VISIT(A1))
+```
+
+```text Key Points
+=AILIST("Extract 5 key points from: " & VISIT(A1))
+```
+
+```text Sentiment
+=AITEXT("Analyze the sentiment of: " & VISIT(A1))
+```
+</CodeGroup>
+
+### Research Workflows
+
+Build research pipelines:
+
+1. Column A: URLs to research
+2. Column B: `=VISIT(A1)` - Raw content
+3. Column C: `=AITEXT("Extract main thesis: " & B1)` - AI analysis
+
+### Content Comparison
+
+Compare content from different sources:
+
+```
+=AITEXT("Compare these two articles: Article 1: " & VISIT(A1) & " Article 2: " & VISIT(A2))
+```
+
+## Handling Dynamic Content
+
+VISIT works best with static HTML pages. For JavaScript-heavy sites:
+
+- Content that loads after page render may not be captured
+- Single-page applications (SPAs) may return minimal content
+- Consider alternative data sources if VISIT returns incomplete content
+
+## Character Limits
+
+| Scenario | Limit |
+|----------|-------|
+| Maximum return length | 50,000 characters |
+| Truncation | Content exceeding limit is truncated |
+
+<Tip>
+For very long pages, combine with AI summarization to get the key information:
+```
+=AITEXT("Summarize the most important points: " & VISIT(A1))
+```
+</Tip>
+
+## Caching
+
+Results are cached for 30 minutes per user:
+- Same URL returns cached result within 30 minutes
+- Different users have separate caches
+- Cache improves performance for repeated access
+
+## Error Handling
+
+Use IFERROR for robust formulas:
+
+```
+=IFERROR(VISIT(A1), "Unable to fetch page")
+```
+
+### Common Errors
+
+| Error | Cause | Solution |
+|-------|-------|----------|
+| `Invalid URL format` | Malformed URL | Check URL syntax |
+| `Failed to fetch URL` | Network/access error | Verify URL is accessible |
+| Empty result | Dynamic content | Try GETSELECTOR instead |
+
+## Tips for Better Results
+
+### 1. Use Direct URLs
+
+Avoid shortened URLs or redirect chains:
+
+```
+// Good
+=VISIT("https://example.com/article/full-path")
+
+// Less reliable
+=VISIT("https://bit.ly/xyz")
+```
+
+### 2. Target Specific Pages
+
+Article pages work better than homepages:
+
+```
+// Better
+=VISIT("https://blog.example.com/post/article-title")
+
+// Less structured
+=VISIT("https://example.com")
+```
+
+### 3. Batch Processing
+
+For multiple URLs, process in batches and use error handling:
+
+```
+=IFERROR(VISIT(A1), "Error")
+```
+
+## Related Functions
+
+- [GETSELECTOR](/functions/scraping/selectors) - Extract specific elements
+- [PAGEDATA](/functions/scraping/page-data) - Get metadata for multiple URLs
+- [AITEXT](/functions/ai/aitext) - Process extracted content with AI

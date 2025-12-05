@@ -1,0 +1,179 @@
+---
+title: "OpenRouter"
+description: "Access 100+ AI models through a single API"
+---
+
+## Overview
+
+OpenRouter provides access to over 100 AI models from multiple providers through a single API. This is ideal if you want to experiment with different models or need access to models not directly supported by SheetMagic.
+
+## Getting an API Key
+
+<Steps>
+  <Step title="Create Account">
+    Go to [openrouter.ai](https://openrouter.ai) and sign up.
+  </Step>
+  <Step title="Add Credits">
+    Add credits to your account (various payment methods supported).
+  </Step>
+  <Step title="Generate Key">
+    Navigate to Keys and create a new API key.
+  </Step>
+  <Step title="Copy Key">
+    Copy your API key for use in SheetMagic.
+  </Step>
+</Steps>
+
+## How It Works
+
+OpenRouter acts as a proxy to multiple AI providers:
+
+1. You send a request to OpenRouter
+2. OpenRouter routes to the appropriate provider
+3. Response is returned through OpenRouter
+
+Benefits:
+- Single API key for multiple providers
+- Unified billing
+- Automatic fallbacks
+- Model comparison
+
+## Available Models
+
+OpenRouter provides access to models from:
+
+| Provider | Example Models |
+|----------|----------------|
+| OpenAI | GPT-4o, GPT-3.5 Turbo |
+| Anthropic | Claude 3.5 Sonnet, Claude 3 Opus |
+| Google | Gemini Pro, Gemini Flash |
+| Meta | Llama 3, Llama 2 |
+| Mistral | Mistral Large, Mixtral |
+| Cohere | Command R+ |
+| And many more... | 100+ models |
+
+## Text Generation
+
+OpenRouter supports all text generation functions:
+
+```
+=AITEXT("Your prompt here")
+=AILIST("Generate a list of...")
+```
+
+Models are selected based on your configuration or automatically chosen.
+
+## Image Generation
+
+OpenRouter supports image generation through compatible models:
+
+```
+=AIIMAGE("A beautiful sunset over mountains")
+```
+
+**Supported Aspect Ratios:**
+- 1:1 (square)
+- 16:9 (landscape)
+- 9:16 (portrait)
+- 4:3, 3:4
+- 21:9, 9:21
+
+## Special Model Handling
+
+### Search Models
+
+Models with search capabilities:
+- `gpt-4o-search`
+- `gpt-4o-mini-search`
+
+<Note>
+Search models don't support temperature. SheetMagic automatically omits this parameter.
+</Note>
+
+### Reasoning Models
+
+O-series models through OpenRouter:
+- `o1`, `o1-mini`
+- `o3`, `o3-mini`
+
+These use `max_completion_tokens` instead of `max_tokens`.
+
+## Configuration
+
+### Model Selection
+
+Select models by ID in your OpenRouter configuration. Common choices:
+
+| Use Case | Recommended Model |
+|----------|-------------------|
+| General | openai/gpt-4o |
+| Fast | openai/gpt-4o-mini |
+| Complex | anthropic/claude-3.5-sonnet |
+| Creative | anthropic/claude-3-opus |
+| Budget | meta-llama/llama-3-8b |
+
+### Temperature
+
+Supported for most models (0-2):
+
+| Value | Behavior |
+|-------|----------|
+| 0.0 - 0.3 | Consistent |
+| 0.7 | Balanced |
+| 1.0+ | Creative |
+
+## Advantages
+
+- **Variety**: Access to 100+ models
+- **Single Key**: One API key for everything
+- **Fallbacks**: Automatic failover if a model is down
+- **Cost Comparison**: See pricing across providers
+- **New Models**: Quick access to newly released models
+- **No Multi-Account**: Don't need accounts with each provider
+
+## Use Cases
+
+### Model Comparison
+
+Test different models on the same task:
+
+| Prompt | GPT-4o Result | Claude Result | Llama Result |
+|--------|---------------|---------------|--------------|
+| ... | ... | ... | ... |
+
+### Cost Optimization
+
+Route to cheaper models for simple tasks, premium models for complex ones.
+
+### Experimentation
+
+Try new models without creating new provider accounts.
+
+## Pricing
+
+OpenRouter pricing includes:
+- Per-token costs (varies by model)
+- Small markup over direct provider pricing
+- Unified billing
+
+View model pricing at [openrouter.ai/docs#models](https://openrouter.ai/docs#models).
+
+<Tip>
+OpenRouter shows real-time pricing for each model, making it easy to choose cost-effective options.
+</Tip>
+
+## Limitations
+
+- Small markup over direct API pricing
+- Some provider-specific features may not be available
+- Rate limits may differ from direct access
+- Video and speech not supported through OpenRouter
+
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| Model not found | Check model ID spelling |
+| Rate limited | Check OpenRouter dashboard for limits |
+| High latency | Try a different model or provider |
+| Credits exhausted | Add more credits to account |

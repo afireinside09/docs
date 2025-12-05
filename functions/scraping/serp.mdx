@@ -1,0 +1,243 @@
+---
+title: "SERP & BULKSERP"
+description: "Search the web and return results directly in your spreadsheet"
+---
+
+## SERP
+
+Search DuckDuckGo and return results in a vertical table format.
+
+### Syntax
+
+```
+=SERP(query, [count], [region], [time])
+```
+
+### Parameters
+
+<ParamField path="query" type="string" required>
+  The search query or keywords.
+</ParamField>
+
+<ParamField path="count" type="number" default="20">
+  Number of results to return (1-50).
+</ParamField>
+
+<ParamField path="region" type="string">
+  Region code for localized results (e.g., "us-en", "uk-en", "de-de").
+</ParamField>
+
+<ParamField path="time" type="string">
+  Time filter: "d" (day), "w" (week), "m" (month), "y" (year).
+</ParamField>
+
+### Returns
+
+A vertical table with three columns: Title, Snippet, URL
+
+### Example
+
+```
+=SERP("best project management software", 5)
+```
+
+**Result:**
+
+| Title | Snippet | URL |
+|-------|---------|-----|
+| Top 10 Project Management Tools | Compare the best PM software... | https://... |
+| Project Management Software Guide | Our comprehensive guide to... | https://... |
+| ... | ... | ... |
+
+---
+
+## BULKSERP
+
+Search DuckDuckGo and return results in a single horizontal row.
+
+### Syntax
+
+```
+=BULKSERP(query, [count], [region], [time])
+```
+
+### Parameters
+
+Same as SERP.
+
+### Returns
+
+A single row: `[title1, snippet1, url1, title2, snippet2, url2, ...]`
+
+### Example
+
+```
+=BULKSERP("CRM software comparison", 2)
+```
+
+**Result (single row):**
+
+| A | B | C | D | E | F |
+|---|---|---|---|---|---|
+| Title 1 | Snippet 1 | URL 1 | Title 2 | Snippet 2 | URL 2 |
+
+---
+
+## Region Codes
+
+| Region | Code |
+|--------|------|
+| United States | `us-en` |
+| United Kingdom | `uk-en` |
+| Germany | `de-de` |
+| France | `fr-fr` |
+| Spain | `es-es` |
+| Italy | `it-it` |
+| Canada | `ca-en` |
+| Australia | `au-en` |
+| Japan | `jp-jp` |
+| Brazil | `br-pt` |
+
+Leave empty for default (no region filter).
+
+## Time Filters
+
+| Filter | Period |
+|--------|--------|
+| `d` | Past 24 hours |
+| `w` | Past week |
+| `m` | Past month |
+| `y` | Past year |
+| (empty) | All time |
+
+## Use Cases
+
+### Keyword Research
+
+<CodeGroup>
+```text Find Competitors
+=SERP("your product category", 10)
+```
+
+```text Recent Content
+=SERP("industry topic", 10, "", "w")
+```
+
+```text Local Results
+=SERP("service near me", 10, "us-en")
+```
+</CodeGroup>
+
+### Content Research
+
+<CodeGroup>
+```text Topic Ideas
+=SERP("how to " & A1, 20)
+```
+
+```text Recent News
+=SERP(A1 & " news", 10, "", "d")
+```
+</CodeGroup>
+
+### Competitive Analysis
+
+<CodeGroup>
+```text Who Ranks
+=SERP("best " & A1, 10)
+```
+
+```text Content Gaps
+=SERP(A1 & " guide", 20)
+```
+</CodeGroup>
+
+### Market Research
+
+```
+=SERP("reviews " & A1, 10)
+```
+
+## SERP vs BULKSERP
+
+| Feature | SERP | BULKSERP |
+|---------|------|----------|
+| Layout | Vertical (multiple rows) | Horizontal (single row) |
+| Use case | Detailed analysis | Quick reference |
+| Space needed | More rows | More columns |
+| Best for | Reading results | Data processing |
+
+### When to Use SERP
+
+- Analyzing search results in detail
+- Building a list to process further
+- Visual review of rankings
+
+### When to Use BULKSERP
+
+- Combining with other row data
+- Compact data storage
+- Processing with array formulas
+
+## Combining with AI
+
+### Analyze Search Results
+
+```
+=AITEXT("Identify the top 3 trends from these search results: " & SERP("industry keywords", 10))
+```
+
+### Extract Competitor Insights
+
+```
+=AITEXT("What do these results suggest about market positioning: " & SERP("competitor name", 5))
+```
+
+### Generate Content Ideas
+
+```
+=AILIST("Based on these search results, suggest 5 blog topics: " & SERP("your niche", 10))
+```
+
+## Tips for Better Results
+
+### 1. Use Specific Queries
+
+```
+// Better
+=SERP("best CRM software for small business 2024", 10)
+
+// Too broad
+=SERP("software", 10)
+```
+
+### 2. Add Context
+
+```
+=SERP(A1 & " reviews comparison", 10)
+```
+
+### 3. Filter by Time for Fresh Results
+
+```
+=SERP("breaking news topic", 10, "", "d")
+```
+
+### 4. Use Region for Local SEO
+
+```
+=SERP("restaurant near downtown", 10, "us-en")
+```
+
+## Limitations
+
+- Results from DuckDuckGo (not Google)
+- Maximum 50 results per query
+- May not match exact Google rankings
+- Some specialized searches may return limited results
+
+## Related Functions
+
+- [VISIT](/functions/scraping/visit) - Extract content from result URLs
+- [PAGEDATA](/functions/scraping/page-data) - Get metadata for multiple URLs
+- [AITEXT](/functions/ai/aitext) - Analyze search results with AI

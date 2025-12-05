@@ -1,0 +1,199 @@
+---
+title: "OpenAI"
+description: "GPT-4o, DALL-E, Sora, and TTS models for text, images, video, and speech"
+---
+
+## Overview
+
+OpenAI provides the most comprehensive set of AI capabilities, including text generation, image creation, video generation, and text-to-speech.
+
+## Getting an API Key
+
+<Steps>
+  <Step title="Create Account">
+    Go to [platform.openai.com](https://platform.openai.com) and sign up.
+  </Step>
+  <Step title="Add Payment Method">
+    Navigate to Settings > Billing and add a payment method.
+  </Step>
+  <Step title="Generate API Key">
+    Go to API Keys and click "Create new secret key".
+  </Step>
+  <Step title="Copy Key">
+    Copy the key immediately - it won't be shown again.
+  </Step>
+</Steps>
+
+## Text Models
+
+### Standard Models
+
+| Model | Description | Best For |
+|-------|-------------|----------|
+| gpt-4o | Latest flagship model | General purpose, balanced |
+| gpt-4o-mini | Fast, cost-effective | High volume, simple tasks |
+| gpt-4-turbo | Previous generation | Legacy compatibility |
+| gpt-3.5-turbo | Older model | Basic tasks, lowest cost |
+
+### Advanced Models
+
+| Model | Description | Notes |
+|-------|-------------|-------|
+| gpt-5 | Next-generation | Web search capability |
+| gpt-5-pro | Premium variant | Enhanced capabilities |
+| o1 | Reasoning model | No temperature support |
+| o3 | Advanced reasoning | No temperature support |
+| o3-mini | Compact reasoning | Fast reasoning |
+
+### Reasoning Models
+
+The o-series models (o1, o3, o3-mini) are designed for complex reasoning tasks:
+
+<Note>
+Reasoning models don't support the temperature parameter. They use a fixed reasoning approach.
+</Note>
+
+```
+=AITEXT("Solve this logic puzzle: ...")
+```
+
+### Deep Research Models
+
+| Model | Description | Min Tokens |
+|-------|-------------|------------|
+| o3-deep-research | Comprehensive research | 16,000 |
+| o4-mini-deep-research | Compact research | 8,000 |
+
+Deep research models have built-in web search and require higher token budgets.
+
+## Image Models
+
+### DALL-E 3
+
+The primary image generation model:
+
+| Setting | Options |
+|---------|---------|
+| Sizes | 1024x1024, 1792x1024, 1024x1792 |
+| Quality | Standard, HD |
+
+```
+=AIIMAGE("A serene mountain landscape at sunset, photorealistic")
+```
+
+### GPT-Image-1
+
+Advanced image generation:
+
+| Setting | Options |
+|---------|---------|
+| Sizes | 1024x1024, 1536x1024, 1024x1536, auto |
+| Quality | Low, Medium, High |
+| Formats | PNG, JPEG, WebP |
+
+### DALL-E 2
+
+Legacy model with smaller size options:
+
+| Sizes |
+|-------|
+| 256x256, 512x512, 1024x1024 |
+
+## Speech Models
+
+### OpenAI TTS
+
+Convert text to natural-sounding speech:
+
+```
+=AISPEECH("Welcome to our presentation", "nova")
+```
+
+**Available Voices:**
+
+| Voice | Characteristics |
+|-------|-----------------|
+| alloy | Neutral, balanced |
+| ash | Clear, confident |
+| ballad | Expressive, melodic |
+| coral | Warm, friendly |
+| echo | Warm, conversational |
+| fable | Expressive, storytelling |
+| nova | Friendly, upbeat |
+| onyx | Deep, authoritative |
+| sage | Wise, measured |
+| shimmer | Clear, professional |
+| verse | Dynamic, engaging |
+
+## Video Models
+
+### Sora 2
+
+Generate videos from text descriptions:
+
+```
+=AIVIDEO("A coffee cup with steam rising, morning light, slow motion")
+```
+
+| Model | Quality | Access |
+|-------|---------|--------|
+| sora-2 | Standard | Requires verification |
+| sora-2-pro | Premium | Requires verification |
+
+<Warning>
+Sora requires organization verification. Check your OpenAI account for eligibility.
+</Warning>
+
+## Vision (GPTV)
+
+Analyze images with GPT-4 Vision:
+
+```
+=GPTV("https://example.com/chart.png", "Extract data from this chart")
+```
+
+Requirements:
+- GPT-4o or compatible model selected
+- Publicly accessible image URL
+
+## Configuration Tips
+
+### Temperature
+
+| Value | Behavior | Use Case |
+|-------|----------|----------|
+| 0.0 - 0.3 | Deterministic | Data extraction, classification |
+| 0.4 - 0.7 | Balanced | General content |
+| 0.8 - 1.0 | Creative | Brainstorming, creative writing |
+
+<Note>
+Reasoning models (o1, o3) don't use temperature.
+</Note>
+
+### Max Tokens
+
+| Task | Recommended |
+|------|-------------|
+| Short answers | 256 |
+| Paragraphs | 512-1000 |
+| Long content | 2000-4000 |
+
+## Pricing Tiers
+
+OpenAI pricing varies by model and usage. Key factors:
+- Input tokens (your prompt)
+- Output tokens (AI response)
+- Image generation (per image)
+- Audio generation (per character)
+- Video generation (per video)
+
+Check [OpenAI Pricing](https://openai.com/pricing) for current rates.
+
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| Rate limit errors | Reduce request frequency or upgrade tier |
+| Invalid API key | Regenerate key in OpenAI dashboard |
+| Model not available | Check account tier and access |
+| Sora not working | Verify organization verification status |

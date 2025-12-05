@@ -1,0 +1,198 @@
+---
+title: "AIIMAGE"
+description: "Generate images from text descriptions using AI"
+---
+
+## Syntax
+
+```
+=AIIMAGE(description, [context])
+```
+
+## Parameters
+
+<ParamField path="description" type="string" required>
+  A text description of the image to generate.
+</ParamField>
+
+<ParamField path="context" type="string | cell reference">
+  Optional additional context to append to the description.
+</ParamField>
+
+## Returns
+
+A Google Drive URL to the generated image file (PNG or JPG).
+
+## Requirements
+
+- OpenAI, Gemini, OpenRouter, or Straico API key configured
+- Google Drive access for file storage
+
+## Examples
+
+### Basic Image Generation
+
+```
+=AIIMAGE("A sunset over mountains with a lake reflection")
+```
+
+**Result:** `https://drive.google.com/file/d/abc123.../view`
+
+### With Cell Reference
+
+```
+=AIIMAGE("Product photo of ", A1)
+```
+
+Generates an image based on the product description in cell A1.
+
+### Logo Generation
+
+```
+=AIIMAGE("Minimalist logo for a tech startup called NovaTech, blue and white colors")
+```
+
+## Available Models
+
+### OpenAI Models
+
+| Model | Sizes | Quality Options |
+|-------|-------|-----------------|
+| DALL-E 3 | 1024x1024, 1792x1024, 1024x1792 | Standard, HD |
+| DALL-E 2 | 256x256, 512x512, 1024x1024 | N/A |
+| GPT-Image-1 | 1024x1024, 1536x1024, 1024x1536, auto | Low, Medium, High |
+
+### Gemini Models
+
+| Model | Aspect Ratios |
+|-------|---------------|
+| Gemini 2.5 Flash Image | 1:1, 2:3, 3:2, 4:3, 16:9, 9:16, and more |
+
+Configure your preferred model in [Settings](/guides/configuration).
+
+## Writing Effective Prompts
+
+### Be Descriptive
+
+<CodeGroup>
+```text Good
+=AIIMAGE("A professional headshot of a business woman in her 30s, smiling, wearing a navy blue blazer, neutral gray background, soft studio lighting")
+```
+
+```text Less Effective
+=AIIMAGE("business woman photo")
+```
+</CodeGroup>
+
+### Specify Style
+
+```
+=AIIMAGE("A coffee shop interior, watercolor painting style, warm colors, cozy atmosphere")
+```
+
+### Include Technical Details
+
+```
+=AIIMAGE("Product photography of a smartwatch, white background, centered composition, soft shadows, 4K quality")
+```
+
+## Use Cases
+
+### Marketing & Social Media
+
+<CodeGroup>
+```text Social Media Post
+=AIIMAGE("Instagram post for a summer sale, bright colors, beach theme, 'SUMMER SALE' text")
+```
+
+```text Blog Header
+=AIIMAGE("Hero image for a blog about remote work, modern home office, laptop, plants, natural light")
+```
+</CodeGroup>
+
+### Product Visualization
+
+<CodeGroup>
+```text Product Mockup
+=AIIMAGE("T-shirt mockup with the text 'Adventure Awaits', outdoor mountain background")
+```
+
+```text Packaging Design
+=AIIMAGE("Minimalist packaging box for organic skincare, white and green, eco-friendly aesthetic")
+```
+</CodeGroup>
+
+### Presentations
+
+<CodeGroup>
+```text Slide Background
+=AIIMAGE("Abstract gradient background, purple to blue, subtle geometric patterns, professional")
+```
+
+```text Concept Illustration
+=AIIMAGE("Isometric illustration of cloud computing, servers, connected devices, tech blue color scheme")
+```
+</CodeGroup>
+
+## Working with Generated Images
+
+### Viewing Images
+
+Click the Google Drive link to view the image in your browser.
+
+### Downloading
+
+From Google Drive, click **Download** to save the image locally.
+
+### Using in Sheets
+
+Use the `IMAGE()` function to display the generated image in a cell:
+
+```
+=IMAGE(A1)
+```
+
+Where A1 contains the AIIMAGE result URL.
+
+## Image Size Configuration
+
+Configure image dimensions in **Extensions > SheetMagic > Open AI Settings**.
+
+### Recommended Sizes by Use Case
+
+| Use Case | Recommended Size |
+|----------|-----------------|
+| Social media posts | 1024x1024 (square) |
+| Blog headers | 1792x1024 (landscape) |
+| Pinterest pins | 1024x1792 (portrait) |
+| Presentations | 1792x1024 (landscape) |
+
+## Tips for Consistency
+
+### Create a Style Guide Prompt
+
+Store your style preferences in a cell and reference it:
+
+```
+=AIIMAGE(A1 & ", modern flat design style, vibrant colors, clean lines")
+```
+
+### Use Templates
+
+Create a template prompt with placeholders:
+
+```
+=AIIMAGE("Product photo of " & A1 & ", white background, professional lighting, e-commerce style")
+```
+
+## Limitations
+
+- Generation may take 10-30 seconds
+- Some content types are restricted by AI provider policies
+- Generated images are stored in your Google Drive
+- Image quality depends on the selected model and settings
+
+## Related Functions
+
+- [GPTV](/functions/ai/gptv) - Analyze existing images
+- [AITEXT](/functions/ai/aitext) - Generate text descriptions

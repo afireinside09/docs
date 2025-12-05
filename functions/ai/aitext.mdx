@@ -1,0 +1,160 @@
+---
+title: "AITEXT"
+description: "Generate AI text responses directly in your spreadsheet cells"
+---
+
+## Syntax
+
+```
+=AITEXT(prompt, [context])
+```
+
+## Parameters
+
+<ParamField path="prompt" type="string" required>
+  Your question, task, or instruction for the AI. Maximum 50,000 characters.
+</ParamField>
+
+<ParamField path="context" type="string | cell reference">
+  Optional additional context. Can be a cell reference (e.g., `A1`) or text string.
+</ParamField>
+
+## Returns
+
+A single text value in the cell containing the AI-generated response.
+
+## Examples
+
+### Basic Usage
+
+```
+=AITEXT("Write a tagline for a coffee shop")
+```
+
+**Result:** "Brew happiness, one cup at a time"
+
+### With Cell Reference Context
+
+```
+=AITEXT("Summarize this article", A2)
+```
+
+Uses the content of cell A2 as context for summarization.
+
+### Complex Prompts
+
+```
+=AITEXT("Translate to French, then explain any idioms: " & A1)
+```
+
+## Use Cases
+
+### Content Generation
+
+<CodeGroup>
+```text Product Descriptions
+=AITEXT("Write a compelling product description for: " & A1)
+```
+
+```text Blog Introductions
+=AITEXT("Write a hook paragraph for a blog post about: " & A1)
+```
+
+```text Email Subject Lines
+=AITEXT("Generate 1 email subject line for: " & A1)
+```
+</CodeGroup>
+
+### Data Processing
+
+<CodeGroup>
+```text Sentiment Analysis
+=AITEXT("Classify the sentiment as Positive, Negative, or Neutral: " & A1)
+```
+
+```text Entity Extraction
+=AITEXT("Extract all company names from this text: " & A1)
+```
+
+```text Data Cleaning
+=AITEXT("Fix spelling and grammar errors: " & A1)
+```
+</CodeGroup>
+
+### Translation & Localization
+
+<CodeGroup>
+```text Translation
+=AITEXT("Translate to Spanish: " & A1)
+```
+
+```text Localization
+=AITEXT("Adapt this marketing copy for the UK market: " & A1)
+```
+</CodeGroup>
+
+### Research & Analysis
+
+<CodeGroup>
+```text Summarization
+=AITEXT("Summarize in 3 bullet points: " & A1)
+```
+
+```text Comparison
+=AITEXT("Compare and contrast: " & A1 & " vs " & B1)
+```
+</CodeGroup>
+
+## Tips for Better Results
+
+### 1. Be Explicit About Format
+
+```
+=AITEXT("List 5 keywords, comma-separated, no explanations: " & A1)
+```
+
+### 2. Specify Length
+
+```
+=AITEXT("In exactly 50 words, describe: " & A1)
+```
+
+### 3. Define the Role
+
+```
+=AITEXT("As a professional copywriter, write: " & A1)
+```
+
+### 4. Provide Examples
+
+```
+=AITEXT("Categorize like these examples: 'running shoes' → Sports, 'laptop' → Electronics. Categorize: " & A1)
+```
+
+## Processing at Scale
+
+When processing multiple rows:
+
+1. Write your formula in the first cell
+2. Drag the formula down to apply to more rows
+3. SheetMagic processes requests asynchronously
+
+<Tip>
+For large batches, start with 10-20 rows to estimate completion time before processing thousands of cells.
+</Tip>
+
+## Model Selection
+
+The AI model used depends on your [configuration](/guides/configuration). Different models have different strengths:
+
+| Model | Best For |
+|-------|----------|
+| GPT-4o | General-purpose, balanced quality/speed |
+| GPT-4o-mini | Fast responses, lower cost |
+| Claude 3.5 Sonnet | Complex reasoning, nuanced writing |
+| Gemini 2.5 Flash | Quick responses, Google ecosystem |
+
+## Related Functions
+
+- [AILIST](/functions/ai/ailist) - Generate vertical lists
+- [AILISTH](/functions/ai/ailist#ailisth) - Generate horizontal lists

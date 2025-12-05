@@ -1,0 +1,172 @@
+---
+title: "Straico"
+description: "Simple, unified access to multiple AI models"
+---
+
+## Overview
+
+Straico provides a simplified interface to multiple AI models with straightforward pricing. It's a good option for users who want easy access to various models without managing multiple provider accounts.
+
+## Getting an API Key
+
+<Steps>
+  <Step title="Create Account">
+    Go to [straico.com](https://straico.com) and sign up.
+  </Step>
+  <Step title="Choose Plan">
+    Select a plan that fits your needs.
+  </Step>
+  <Step title="Get API Key">
+    Navigate to your account settings to find your API key.
+  </Step>
+  <Step title="Add to SheetMagic">
+    Copy the key and add it in SheetMagic settings.
+  </Step>
+</Steps>
+
+## Capabilities
+
+| Feature | Supported |
+|---------|-----------|
+| Text Generation | Yes |
+| Image Generation | Yes |
+| Speech Synthesis | No |
+| Video Generation | No |
+| Vision Analysis | No |
+
+## Text Generation
+
+Straico provides access to multiple text models:
+
+```
+=AITEXT("Write a product description for " & A1)
+```
+
+### Features
+
+- Multiple model options
+- Reasoning model support
+- Automatic content filtering handling
+
+### Reasoning Support
+
+Some Straico models support reasoning (thinking) capabilities:
+- Extended processing for complex tasks
+- Reasoning steps included in response metadata
+
+## Image Generation
+
+Generate images through Straico:
+
+```
+=AIIMAGE("A modern office space with natural lighting")
+```
+
+### Size Options
+
+| Option | Aspect Ratio |
+|--------|--------------|
+| landscape | Width > Height |
+| portrait | Height > Width |
+| square | Equal dimensions |
+
+Straico automatically maps pixel dimensions to these categories:
+- 1024x768 → landscape
+- 768x1024 → portrait
+- 1024x1024 → square
+
+## Configuration
+
+### Temperature
+
+Standard temperature support (0-1):
+
+| Value | Behavior |
+|-------|----------|
+| 0.0 - 0.3 | Focused |
+| 0.7 | Balanced (default) |
+| 1.0 | Creative |
+
+### Max Tokens
+
+Default: 1000 tokens
+
+Configure based on expected response length.
+
+## Use Cases
+
+### Simple Integrations
+
+Straico works well for straightforward AI tasks:
+
+```
+=AITEXT("Summarize: " & A1)
+=AILIST("5 ideas for " & A1)
+```
+
+### Budget-Conscious Projects
+
+Predictable pricing helps manage costs:
+
+```
+=AITEXT("Quick answer: " & A1)
+```
+
+### Multi-Model Access
+
+Access various models without multiple accounts.
+
+## Advantages
+
+- **Simple Pricing**: Straightforward cost structure
+- **Unified API**: Single interface for multiple models
+- **Easy Setup**: Quick onboarding process
+- **Reasoning Support**: Access to thinking-capable models
+
+## Error Handling
+
+Straico handles common errors gracefully:
+
+### Content Filter Errors
+
+If content is filtered, SheetMagic returns a clear error message.
+
+### Token Limit Errors
+
+If max tokens is too high, helpful suggestions are provided.
+
+## Pricing
+
+Straico offers:
+- Subscription plans with included credits
+- Pay-as-you-go options
+- Clear per-request pricing
+
+Check [straico.com/pricing](https://straico.com/pricing) for current plans.
+
+## Limitations
+
+- No speech synthesis
+- No video generation
+- No vision analysis
+- Model selection may be more limited than direct providers
+
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| API key invalid | Check key in Straico dashboard |
+| Request failed | Verify account has credits |
+| Model error | Try a different model |
+| Content filtered | Modify prompt content |
+
+## Best Practices
+
+1. **Start Simple**: Use Straico for straightforward text and image tasks
+2. **Monitor Usage**: Track credits in Straico dashboard
+3. **Test Models**: Experiment with different models to find the best fit
+4. **Handle Errors**: Use IFERROR for robust formulas
+
+```
+=IFERROR(AITEXT(A1), "Generation failed")
+```

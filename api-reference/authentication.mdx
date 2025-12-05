@@ -1,0 +1,180 @@
+---
+title: "Authentication"
+description: "Authenticate with the SheetMagic API"
+---
+
+## Authentication Methods
+
+The SheetMagic API supports two authentication methods:
+
+1. **JWT Bearer Token** - For user-specific operations
+2. **License Secret** - For server-to-server operations
+
+## JWT Bearer Token
+
+Used for user-authenticated requests from the dashboard or add-on.
+
+### Header Format
+
+```
+Authorization: Bearer <token>
+```
+
+### Obtaining a Token
+
+Tokens are obtained through Supabase Auth:
+
+1. User signs in via the SheetMagic website
+2. Supabase returns a JWT token
+3. Token is included in API requests
+
+### Token Validation
+
+- Tokens are verified against Supabase
+- User profile is auto-created if missing
+- Expired tokens return 401 Unauthorized
+
+### Example Request
+
+```bash
+curl -X GET "https://api.sheetmagic.ai/users/me" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
+  -H "Content-Type: application/json"
+```
+
+## License Secret
+
+Used for server-to-server communication, primarily for license verification from the Google Sheets add-on.
+
+### Header Format
+
+Either:
+```
+x-license-secret: <secret>
+```
+
+Or:
+```
+Authorization: Secret <secret>
+```
+
+### Security
+
+- Constant-time comparison prevents timing attacks
+- Secret is configured on the backend
+- Only used for specific endpoints (e.g., `/licenses/verify`)
+
+### Endpoints Using License Secret
+
+| Endpoint | Purpose |
+|----------|---------|
+| `GET /licenses/verify` | Verify license and seat access |
+| `POST /licenses/check-expiration` | Check expired licenses |
+| `POST /appsumo/codes` | Generate AppSumo codes (admin) |
+| `GET /appsumo/codes/:code` | Get code details (admin) |
+
+## Admin Authentication
+
+Some endpoints require admin privileges:
+
+### Requirements
+
+1. Valid JWT token
+2. User has `is_admin = true` in database
+
+### Admin-Only Endpoints
+
+| Endpoint | Purpose |
+|----------|---------|
+| `POST /admin/users` | Create users manually |
+
+### Error Response
+
+Non-admin users receive:
+
+```json
+{
+  "error": "Forbidden",
+  "message": "Admin access required"
+}
+```
+
+## Error Responses
+
+### 401 Unauthorized
+
+```json
+{
+  "error": "Unauthorized",
+  "message": "Invalid or missing authentication"
+}
+```
+
+Causes:
+- Missing Authorization header
+- Invalid token
+- Expired token
+- Invalid license secret
+
+### 403 Forbidden
+
+```json
+{
+  "error": "Forbidden",
+  "message": "Insufficient permissions"
+}
+```
+
+Causes:
+- Non-admin accessing admin endpoint
+- User accessing another user's resources
+
+## Best Practices
+
+### Token Storage
+
+- Never store tokens in client-side code
+- Use secure, HTTP-only cookies when possible
+- Implement token refresh before expiration
+
+### Secret Management
+
+- Never expose license secret in client code
+- Rotate secrets periodically
+- Use environment variables for storage
+
+### Request Security
+
+- Always use HTTPS
+- Include Content-Type header
+- Validate responses before processing
+
+## Testing Authentication
+
+### Verify Your Token
+
+```bash
+curl -X GET "https://api.sheetmagic.ai/users/me" \
+  -H "Authorization: Bearer <your-token>" \
+  -H "Content-Type: application/json"
+```
+
+Success response:
+
+```json
+{
+  "user": {
+    "id": "uuid",
+    "email": "user@example.com",
+    "full_name": "User Name"
+  }
+}
+```
+
+### Common Issues
+
+| Issue | Solution |
+|-------|----------|
+| Token expired | Re-authenticate to get new token |
+| Invalid format | Check Bearer prefix is included |
+| Wrong endpoint | Verify endpoint requires this auth type |

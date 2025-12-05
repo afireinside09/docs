@@ -1,0 +1,203 @@
+---
+title: "AILIST & AILISTH"
+description: "Generate AI-powered lists that automatically fill multiple cells"
+---
+
+## AILIST
+
+Generate a vertical list where each item appears in a separate cell below the formula.
+
+### Syntax
+
+```
+=AILIST(prompt, [context])
+```
+
+### Parameters
+
+<ParamField path="prompt" type="string" required>
+  Description of the list to generate. Include the number of items if desired.
+</ParamField>
+
+<ParamField path="context" type="string | cell reference">
+  Optional additional context from a cell or text string.
+</ParamField>
+
+### Returns
+
+A vertical array where each list item occupies a separate row.
+
+### Examples
+
+```
+=AILIST("5 benefits of regular exercise")
+```
+
+**Result:**
+| Cell | Content |
+|------|---------|
+| A1 | Improves cardiovascular health |
+| A2 | Boosts mental wellbeing |
+| A3 | Increases energy levels |
+| A4 | Strengthens muscles and bones |
+| A5 | Helps maintain healthy weight |
+
+---
+
+## AILISTH
+
+Generate a horizontal list where each item appears in a separate cell to the right.
+
+### Syntax
+
+```
+=AILISTH(prompt, [context])
+```
+
+### Parameters
+
+<ParamField path="prompt" type="string" required>
+  Description of the list to generate.
+</ParamField>
+
+<ParamField path="context" type="string | cell reference">
+  Optional additional context.
+</ParamField>
+
+### Returns
+
+A horizontal array where each list item occupies a separate column.
+
+### Examples
+
+```
+=AILISTH("3 primary colors")
+```
+
+**Result:**
+| A1 | B1 | C1 |
+|----|----|----|
+| Red | Blue | Yellow |
+
+---
+
+## Use Cases
+
+### Content Planning
+
+<CodeGroup>
+```text Blog Topics (Vertical)
+=AILIST("10 blog post ideas about sustainable living")
+```
+
+```text Column Headers (Horizontal)
+=AILISTH("5 columns for a customer database")
+```
+</CodeGroup>
+
+### Research & Brainstorming
+
+<CodeGroup>
+```text Competitor Analysis
+=AILIST("5 key features of " & A1)
+```
+
+```text Keyword Research
+=AILIST("10 SEO keywords related to: " & A1)
+```
+</CodeGroup>
+
+### Data Generation
+
+<CodeGroup>
+```text Test Data
+=AILIST("5 realistic company names for a tech startup")
+```
+
+```text Categories
+=AILISTH("Product categories for an electronics store")
+```
+</CodeGroup>
+
+### Education & Learning
+
+<CodeGroup>
+```text Study Topics
+=AILIST("Key concepts to understand about: " & A1)
+```
+
+```text Quiz Questions
+=AILIST("5 quiz questions about: " & A1)
+```
+</CodeGroup>
+
+## Specifying List Length
+
+Always specify the number of items for consistent results:
+
+```
+=AILIST("Exactly 7 marketing channels for B2B software")
+```
+
+<Tip>
+Using words like "exactly" or "precisely" helps ensure the AI returns the expected number of items.
+</Tip>
+
+## Combining with Other Formulas
+
+### Vertical List with Processing
+
+Create a list, then process each item:
+
+| Column A | Column B |
+|----------|----------|
+| `=AILIST("5 product ideas")` | `=AITEXT("Write tagline for: " & A1)` |
+
+### Horizontal Headers with Data
+
+Use AILISTH to create column headers, then fill data below:
+
+```
+=AILISTH("Columns for tracking customer orders")
+```
+
+## Tips for Better Lists
+
+### 1. Be Specific About Format
+
+```
+=AILIST("5 action verbs for resume writing, one word each")
+```
+
+### 2. Request Unique Items
+
+```
+=AILIST("10 unique, non-overlapping categories for: " & A1)
+```
+
+### 3. Add Constraints
+
+```
+=AILIST("5 dinner recipes under 30 minutes, vegetarian only")
+```
+
+### 4. Define Scope
+
+```
+=AILIST("3 competitors in the CRM software market for small businesses")
+```
+
+## Vertical vs Horizontal
+
+Choose based on your data structure:
+
+| Use AILIST When | Use AILISTH When |
+|-----------------|------------------|
+| Building a column of data | Creating headers or labels |
+| Generating options to process row by row | Data naturally flows horizontally |
+| Creating numbered lists | Space is limited vertically |
+
+## Related Functions
+
+- [AITEXT](/functions/ai/aitext) - Single text response
+- [SERP](/functions/scraping/serp) - Search results as lists

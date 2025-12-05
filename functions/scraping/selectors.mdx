@@ -1,0 +1,223 @@
+---
+title: "GETSELECTOR"
+description: "Extract specific elements from web pages using CSS selectors"
+---
+
+## Syntax
+
+```
+=GETSELECTOR(url, selector)
+```
+
+## Parameters
+
+<ParamField path="url" type="string | cell reference" required>
+  The URL of the webpage to scrape.
+</ParamField>
+
+<ParamField path="selector" type="string" required>
+  A CSS selector to match elements on the page.
+</ParamField>
+
+## Returns
+
+A vertical list with the text content of all matching elements.
+
+## Examples
+
+### Extract Prices
+
+```
+=GETSELECTOR("https://example.com/products", ".price")
+```
+
+**Result:**
+| Cell | Content |
+|------|---------|
+| A1 | $29.99 |
+| A2 | $49.99 |
+| A3 | $19.99 |
+
+### Extract Product Titles
+
+```
+=GETSELECTOR(A1, "h2.product-title")
+```
+
+### Extract List Items
+
+```
+=GETSELECTOR("https://example.com/features", "ul.features li")
+```
+
+## CSS Selector Reference
+
+### Basic Selectors
+
+| Selector | Description | Example |
+|----------|-------------|---------|
+| `.classname` | Elements with class | `.price`, `.product-title` |
+| `#idname` | Element with ID | `#main-content`, `#header` |
+| `element` | Elements by tag | `p`, `h2`, `span` |
+| `*` | All elements | `*` (rarely useful) |
+
+### Combined Selectors
+
+| Selector | Description | Example |
+|----------|-------------|---------|
+| `element.class` | Element with class | `div.product`, `span.price` |
+| `element#id` | Element with ID | `div#content` |
+| `.class1.class2` | Multiple classes | `.product.featured` |
+
+### Hierarchy Selectors
+
+| Selector | Description | Example |
+|----------|-------------|---------|
+| `parent child` | Descendant | `div p`, `.content span` |
+| `parent > child` | Direct child | `ul > li`, `.menu > a` |
+| `element + sibling` | Adjacent sibling | `h2 + p` |
+| `element ~ sibling` | General sibling | `h2 ~ p` |
+
+### Attribute Selectors
+
+| Selector | Description | Example |
+|----------|-------------|---------|
+| `[attr]` | Has attribute | `[data-price]` |
+| `[attr="value"]` | Exact value | `[type="submit"]` |
+| `[attr^="value"]` | Starts with | `[href^="https"]` |
+| `[attr$="value"]` | Ends with | `[href$=".pdf"]` |
+| `[attr*="value"]` | Contains | `[class*="product"]` |
+
+### Pseudo-Selectors
+
+| Selector | Description | Example |
+|----------|-------------|---------|
+| `:first-child` | First child | `li:first-child` |
+| `:last-child` | Last child | `li:last-child` |
+| `:nth-child(n)` | Nth child | `tr:nth-child(2)` |
+
+## Use Cases
+
+### Price Monitoring
+
+Track prices from e-commerce sites:
+
+```
+=GETSELECTOR("https://store.com/product", ".product-price")
+```
+
+### Review Extraction
+
+Get customer reviews:
+
+```
+=GETSELECTOR(A1, ".review-text")
+```
+
+### Navigation Analysis
+
+Extract menu items:
+
+```
+=GETSELECTOR(A1, "nav a")
+```
+
+### Data Tables
+
+Extract table cells:
+
+```
+=GETSELECTOR(A1, "table.data td")
+```
+
+### Article Content
+
+Get specific content sections:
+
+```
+=GETSELECTOR(A1, "article p")
+```
+
+## Finding the Right Selector
+
+### Using Browser Developer Tools
+
+1. Right-click on the element you want to extract
+2. Select "Inspect" or "Inspect Element"
+3. Look at the element's classes and structure
+4. Build your selector based on unique identifiers
+
+### Tips for Reliable Selectors
+
+<Steps>
+  <Step title="Be Specific">
+    Use multiple attributes when possible:
+    ```
+    div.product-card .price-value
+    ```
+  </Step>
+  <Step title="Avoid Generic Selectors">
+    Instead of `div` or `span`, use classes:
+    ```
+    .product-price
+    ```
+  </Step>
+  <Step title="Use Hierarchy">
+    Provide context with parent elements:
+    ```
+    .product-listing .item-price
+    ```
+  </Step>
+  <Step title="Test in Browser">
+    Use browser console to test:
+    ```javascript
+    document.querySelectorAll('.your-selector')
+    ```
+  </Step>
+</Steps>
+
+## Combining with Other Functions
+
+### Price Tracking with AI Analysis
+
+```
+=AITEXT("What is the average of these prices: " & GETSELECTOR(A1, ".price"))
+```
+
+### Extract and Summarize
+
+```
+=AITEXT("Summarize these reviews: " & GETSELECTOR(A1, ".review-text"))
+```
+
+## Error Handling
+
+### No Elements Found
+
+If the selector matches nothing, you'll receive an error or empty result.
+
+```
+=IFERROR(GETSELECTOR(A1, ".nonexistent"), "No elements found")
+```
+
+### Common Issues
+
+| Issue | Solution |
+|-------|----------|
+| Empty result | Verify selector matches elements |
+| Wrong content | Refine selector to be more specific |
+| Error | Check URL accessibility |
+| Partial content | Content may be JavaScript-rendered |
+
+## Limitations
+
+- Only extracts text content (not HTML)
+- Limited support for JavaScript-rendered content
+- Some sites block automated access
+- Dynamic content may not be captured
+
+## Related Functions
+
+- [VISIT](/functions/scraping/visit) - Extract all page content
+- [PAGEDATA](/functions/scraping/page-data) - Get standard metadata
+- [GETIMG](/functions/scraping/images) - Extract image URLs

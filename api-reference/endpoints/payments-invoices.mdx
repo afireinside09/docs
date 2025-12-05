@@ -1,0 +1,123 @@
+---
+title: "List Invoices"
+api: "GET /payments/invoices"
+description: "List user's invoices from Stripe"
+---
+
+## Request
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token from Supabase Auth
+</ParamField>
+
+<ParamField query="limit" type="number" default="10">
+  Maximum invoices to return (max 100)
+</ParamField>
+
+<ParamField query="starting_after" type="string">
+  Invoice ID for pagination
+</ParamField>
+
+## Response
+
+<ResponseField name="invoices" type="array">
+  Array of invoice objects
+</ResponseField>
+
+<ResponseField name="has_more" type="boolean">
+  Whether more invoices are available
+</ResponseField>
+
+## Invoice Object
+
+<ResponseField name="id" type="string">
+  Stripe invoice ID
+</ResponseField>
+
+<ResponseField name="number" type="string">
+  Invoice number (nullable)
+</ResponseField>
+
+<ResponseField name="amount_due" type="number">
+  Amount due in cents
+</ResponseField>
+
+<ResponseField name="amount_paid" type="number">
+  Amount paid in cents
+</ResponseField>
+
+<ResponseField name="currency" type="string">
+  Currency code (e.g., "usd")
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  Invoice status: `draft`, `open`, `paid`, `uncollectible`, `void`
+</ResponseField>
+
+<ResponseField name="created" type="number">
+  Creation timestamp (Unix)
+</ResponseField>
+
+<ResponseField name="invoice_pdf" type="string">
+  PDF download URL (nullable)
+</ResponseField>
+
+<ResponseField name="hosted_invoice_url" type="string">
+  Hosted invoice page URL (nullable)
+</ResponseField>
+
+## Example
+
+<CodeGroup>
+```bash cURL
+curl -X GET "https://api.sheetmagic.ai/payments/invoices?limit=10" \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json"
+```
+
+```javascript JavaScript
+const response = await fetch('https://api.sheetmagic.ai/payments/invoices?limit=10', {
+  headers: {
+    'Authorization': 'Bearer <token>',
+    'Content-Type': 'application/json'
+  }
+});
+const data = await response.json();
+```
+</CodeGroup>
+
+## Response Example
+
+```json
+{
+  "invoices": [
+    {
+      "id": "in_1abc123def456",
+      "number": "INV-0001",
+      "amount_due": 9900,
+      "amount_paid": 9900,
+      "currency": "usd",
+      "status": "paid",
+      "created": 1701698400,
+      "invoice_pdf": "https://pay.stripe.com/invoice/abc123/pdf",
+      "hosted_invoice_url": "https://invoice.stripe.com/i/abc123"
+    }
+  ],
+  "has_more": false
+}
+```
+
+## Pagination
+
+To get more invoices, use the `starting_after` parameter with the last invoice ID:
+
+```
+GET /payments/invoices?limit=10&starting_after=in_1abc123def456
+```
+
+## Errors
+
+| Status | Description |
+|--------|-------------|
+| 401 | Invalid or missing token |
+| 500 | Server error |

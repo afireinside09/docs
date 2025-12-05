@@ -1,0 +1,158 @@
+---
+title: "Configuration"
+description: "Configure AI providers, models, and settings in SheetMagic"
+---
+
+## Accessing Settings
+
+Open the settings sidebar:
+
+1. Click **Extensions** in the menu bar
+2. Select **SheetMagic > Open AI Settings**
+
+The sidebar provides access to all configuration options.
+
+## AI Provider Settings
+
+### Selecting a Provider
+
+SheetMagic supports multiple AI providers:
+
+| Provider | Best For |
+|----------|----------|
+| OpenAI | General-purpose, images, speech, video |
+| Gemini | Google ecosystem, fast responses |
+| Claude | Complex reasoning, long documents |
+| OpenRouter | Access to 100+ models |
+| Straico | Simple pricing, multiple models |
+
+Select your preferred provider from the dropdown in the settings sidebar.
+
+### Adding API Keys
+
+<Steps>
+  <Step title="Open API Key Manager">
+    Click **Extensions > SheetMagic > Manage AI API Keys**.
+  </Step>
+  <Step title="Add New Key">
+    Click **Add API Key** and select your provider.
+  </Step>
+  <Step title="Enter Your Key">
+    Paste your API key and click **Save**.
+  </Step>
+</Steps>
+
+<Warning>
+Never share your API keys. SheetMagic stores keys securely in your Google account's script properties.
+</Warning>
+
+## Model Selection
+
+Different models offer varying capabilities and price points:
+
+### Text Models
+
+| Model | Provider | Speed | Quality | Cost |
+|-------|----------|-------|---------|------|
+| GPT-4o | OpenAI | Fast | High | Medium |
+| GPT-4o-mini | OpenAI | Very Fast | Good | Low |
+| Claude 3.5 Sonnet | Anthropic | Fast | High | Medium |
+| Gemini 2.5 Flash | Google | Very Fast | Good | Low |
+
+### Image Models
+
+| Model | Provider | Quality | Sizes |
+|-------|----------|---------|-------|
+| DALL-E 3 | OpenAI | Excellent | 1024x1024, 1792x1024, 1024x1792 |
+| GPT-Image-1 | OpenAI | Excellent | Multiple formats |
+| Gemini 2.5 Flash Image | Google | Good | Multiple aspect ratios |
+
+## Temperature Setting
+
+Temperature controls response creativity:
+
+| Value | Behavior |
+|-------|----------|
+| 0.0 - 0.3 | Focused, deterministic responses |
+| 0.4 - 0.7 | Balanced creativity (default: 0.7) |
+| 0.8 - 1.0 | More creative, varied responses |
+
+<Note>
+O-series models (o1, o3, etc.) don't support temperature. They use reasoning effort instead.
+</Note>
+
+## Max Tokens
+
+Control response length by setting maximum tokens:
+
+- **Short responses**: 256-512 tokens
+- **Medium responses**: 1000 tokens (default)
+- **Long responses**: 2000-4000 tokens
+
+<Tip>
+1 token ≈ 4 characters in English. A 1000-token response is roughly 750 words.
+</Tip>
+
+## Image Settings
+
+Configure image generation defaults:
+
+### Size Options
+
+**DALL-E 3:**
+- 1024x1024 (square)
+- 1792x1024 (landscape)
+- 1024x1792 (portrait)
+
+**GPT-Image-1:**
+- 1024x1024
+- 1536x1024
+- 1024x1536
+- auto (model chooses)
+
+### Quality Options
+
+- **Standard**: Faster generation
+- **HD**: Higher detail (DALL-E 3)
+- **High**: Maximum quality (GPT-Image-1)
+
+## Voice Settings (AISPEECH)
+
+Select a voice for text-to-speech:
+
+| Voice | Characteristics |
+|-------|-----------------|
+| alloy | Neutral, balanced |
+| echo | Warm, conversational |
+| fable | Expressive, storytelling |
+| onyx | Deep, authoritative |
+| nova | Friendly, upbeat |
+| shimmer | Clear, professional |
+
+Additional voices: ash, ballad, coral, sage, verse
+
+## Reset Settings
+
+To reset all settings to defaults:
+
+1. Click **Extensions > SheetMagic > Reset All Data**
+2. Confirm the reset
+3. Reconfigure your API keys and preferences
+
+<Warning>
+Resetting clears all cached data, API keys, and preferences. You'll need to set up SheetMagic again.
+</Warning>
+
+## Troubleshooting Configuration
+
+<AccordionGroup>
+  <Accordion title="Settings not saving">
+    Ensure you have edit access to the spreadsheet. Settings are stored per-user.
+  </Accordion>
+  <Accordion title="API key rejected">
+    Verify the key is correct and hasn't expired. Check your provider's dashboard for key status.
+  </Accordion>
+  <Accordion title="Model not available">
+    Some models require specific API tiers. Check your provider account for access levels.
+  </Accordion>
+</AccordionGroup>

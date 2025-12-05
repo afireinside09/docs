@@ -1,0 +1,160 @@
+---
+title: "Web Scraping Overview"
+description: "Extract content, metadata, and data from any website directly in Google Sheets"
+---
+
+## Introduction
+
+SheetMagic's web scraping functions let you extract information from websites without leaving your spreadsheet. Pull content, search results, metadata, images, and more with simple formulas.
+
+## Available Functions
+
+<CardGroup cols={2}>
+  <Card title="VISIT" icon="globe" href="/functions/scraping/visit">
+    Extract clean text content from any webpage.
+  </Card>
+  <Card title="SERP / BULKSERP" icon="magnifying-glass" href="/functions/scraping/serp">
+    Search the web and return results.
+  </Card>
+  <Card title="Page Metadata" icon="file-lines" href="/functions/scraping/page-data">
+    Get titles, descriptions, and headings.
+  </Card>
+  <Card title="GETSELECTOR" icon="code" href="/functions/scraping/selectors">
+    Extract elements using CSS selectors.
+  </Card>
+  <Card title="GETIMG" icon="image" href="/functions/scraping/images">
+    Extract all image URLs from a page.
+  </Card>
+  <Card title="DOMAINCHECK" icon="circle-check" href="/functions/scraping/domain-check">
+    Check domain availability.
+  </Card>
+</CardGroup>
+
+## Quick Reference
+
+| Function | Purpose | Returns |
+|----------|---------|---------|
+| `=VISIT(url)` | Extract page content | Text |
+| `=SERP(query)` | Search results | Table (Title, Snippet, URL) |
+| `=BULKSERP(query)` | Search results | Single row |
+| `=GETMETATITLE(url)` | Page title | Text |
+| `=GETMETADESCRIPTION(url)` | Meta description | Text |
+| `=GETH1(url)` | First H1 heading | Text |
+| `=GETH2(url)` | All H2 headings | Vertical list |
+| `=GETHEADINGS(url)` | All headings | Vertical list |
+| `=GETP(url)` | All paragraphs | Vertical list |
+| `=PAGEDATA(urls)` | Multiple URL metadata | Table |
+| `=GETSELECTOR(url, selector)` | CSS selector content | Vertical list |
+| `=GETIMG(url)` | Image URLs | Vertical list |
+| `=DOMAINCHECK(domain)` | Domain availability | TAKEN/AVAILABLE |
+
+## How Web Scraping Works
+
+1. You enter a formula with a target URL
+2. SheetMagic's proxy fetches the page content
+3. Content is parsed and extracted
+4. Results are returned to your cell
+
+<Note>
+Web scraping results are cached for 30 minutes to improve performance and reduce server load.
+</Note>
+
+## Common Use Cases
+
+### SEO Analysis
+
+```
+=PAGEDATA(A1:A10)
+```
+
+Analyze title tags, meta descriptions, and H1 headings for multiple pages.
+
+### Competitive Research
+
+```
+=SERP("best crm software", 10)
+```
+
+See who ranks for your target keywords.
+
+### Content Research
+
+```
+=VISIT("https://example.com/article")
+```
+
+Extract article content for summarization with AI:
+
+```
+=AITEXT("Summarize: " & VISIT(A1))
+```
+
+### Price Monitoring
+
+```
+=GETSELECTOR("https://example.com/product", ".price")
+```
+
+Extract prices using CSS selectors.
+
+## Combining with AI Functions
+
+Web scraping is powerful when combined with AI:
+
+<CodeGroup>
+```text Summarize Articles
+=AITEXT("Summarize in 3 bullet points: " & VISIT(A1))
+```
+
+```text Analyze Competitors
+=AITEXT("Analyze these search results for trends: " & SERP("industry keywords", 5))
+```
+
+```text Extract Insights
+=AITEXT("What is this company's value proposition: " & VISIT(A1))
+```
+</CodeGroup>
+
+## Best Practices
+
+### Respect Rate Limits
+
+Don't overwhelm target websites:
+- Process URLs in batches
+- Use caching (30-minute cache is automatic)
+- Avoid scraping the same URL repeatedly in quick succession
+
+### Handle Errors Gracefully
+
+Some websites may block scraping or have dynamic content:
+
+```
+=IFERROR(VISIT(A1), "Could not fetch page")
+```
+
+### Use Specific Selectors
+
+When possible, use CSS selectors for precise extraction:
+
+```
+=GETSELECTOR(A1, "article .content p")
+```
+
+## Limitations
+
+| Limitation | Details |
+|------------|---------|
+| JavaScript-rendered content | Limited support; static HTML only |
+| Authentication | Cannot access login-protected pages |
+| Rate limiting | 100 requests/minute per IP |
+| Content size | Max 50,000 characters returned |
+| Blocked sites | Some sites block automated access |
+
+## Error Messages
+
+| Error | Meaning |
+|-------|---------|
+| `Failed to fetch URL` | Network error or blocked |
+| `Invalid URL format` | Malformed URL |
+| `No elements found for selector` | CSS selector matched nothing |
+| `Rate limit exceeded` | Too many requests |

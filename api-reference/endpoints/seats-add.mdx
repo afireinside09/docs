@@ -1,0 +1,85 @@
+---
+title: "Add Seat"
+api: "POST /licenses/{licenseId}/seats"
+description: "Add a new seat to a license"
+---
+
+## Request
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token from Supabase Auth
+</ParamField>
+
+<ParamField path="licenseId" type="string" required>
+  License ID (UUID)
+</ParamField>
+
+<ParamField body="email" type="string" required>
+  Email address for the new seat
+</ParamField>
+
+## Validation
+
+- License must be active and not expired
+- Cannot exceed `seat_count` limit
+- Email must be unique per license
+
+## Response
+
+<ResponseField name="seat" type="object">
+  The created seat object
+</ResponseField>
+
+## Example
+
+<CodeGroup>
+```bash cURL
+curl -X POST "https://api.sheetmagic.ai/licenses/123e4567-e89b-12d3-a456-426614174000/seats" \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "newuser@example.com"
+  }'
+```
+
+```javascript JavaScript
+const response = await fetch(
+  'https://api.sheetmagic.ai/licenses/123e4567-e89b-12d3-a456-426614174000/seats',
+  {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer <token>',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      email: 'newuser@example.com'
+    })
+  }
+);
+const data = await response.json();
+```
+</CodeGroup>
+
+## Response Example
+
+```json
+{
+  "seat": {
+    "id": "abc12345-d67e-89f0-a123-456789bcdef0",
+    "email": "newuser@example.com",
+    "status": "active",
+    "created_at": "2024-12-04T12:00:00Z",
+    "license_id": "123e4567-e89b-12d3-a456-426614174000"
+  }
+}
+```
+
+## Errors
+
+| Status | Description |
+|--------|-------------|
+| 400 | License inactive, expired, or no capacity |
+| 401 | Invalid or missing token |
+| 404 | License not found |
+| 409 | Email already has a seat |
+| 500 | Server error |

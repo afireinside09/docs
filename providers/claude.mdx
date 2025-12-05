@@ -1,0 +1,179 @@
+---
+title: "Anthropic Claude"
+description: "Claude models for high-quality text generation and complex reasoning"
+---
+
+## Overview
+
+Anthropic's Claude models are known for thoughtful, nuanced responses and excel at complex reasoning tasks, long-form content, and following detailed instructions.
+
+## Getting an API Key
+
+<Steps>
+  <Step title="Create Account">
+    Go to [console.anthropic.com](https://console.anthropic.com) and sign up.
+  </Step>
+  <Step title="Add Payment">
+    Add a payment method in the billing section.
+  </Step>
+  <Step title="Generate Key">
+    Navigate to API Keys and create a new key.
+  </Step>
+  <Step title="Copy Key">
+    Copy and securely store your API key.
+  </Step>
+</Steps>
+
+## Available Models
+
+| Model | Description | Best For |
+|-------|-------------|----------|
+| claude-4 | Latest generation | Most capable, complex tasks |
+| claude-3.7-sonnet | Advanced Sonnet | Balance of speed and quality |
+| claude-3.5-sonnet | Popular choice | Excellent all-around |
+| claude-3.5-haiku | Fast and efficient | Quick tasks, lower cost |
+| claude-3-opus | Most powerful 3.x | Complex analysis |
+| claude-3-sonnet | Balanced 3.x | General purpose |
+| claude-3-haiku | Fastest 3.x | Simple tasks |
+
+## Model Comparison
+
+### Claude 4
+
+The latest and most capable model:
+- Best at complex reasoning
+- Excellent instruction following
+- Longest context window
+- Premium pricing
+
+### Claude 3.5 Sonnet
+
+The most popular choice:
+- Excellent balance of quality and speed
+- Great for most use cases
+- Moderate pricing
+
+### Claude 3.5 Haiku
+
+Optimized for speed:
+- Fastest responses
+- Lower cost
+- Good for simple tasks
+- Ideal for high-volume processing
+
+## Capabilities
+
+| Feature | Supported |
+|---------|-----------|
+| Text Generation | Yes |
+| Image Generation | No |
+| Speech Synthesis | No |
+| Video Generation | No |
+| Vision Analysis | No |
+
+<Note>
+Claude is a text-only provider in SheetMagic. For images, speech, or video, use OpenAI or Gemini.
+</Note>
+
+## Configuration
+
+### Temperature
+
+Claude supports temperature from 0 to 1:
+
+| Value | Behavior | Use Case |
+|-------|----------|----------|
+| 0.0 | Deterministic | Data extraction, classification |
+| 0.3 - 0.5 | Consistent | Technical writing |
+| 0.7 | Default | General content |
+| 1.0 | Creative | Brainstorming |
+
+### Max Tokens
+
+Default: 1024 tokens
+
+| Task | Recommended |
+|------|-------------|
+| Short answers | 256-512 |
+| Paragraphs | 1024 |
+| Long content | 2048-4096 |
+
+## Best Use Cases
+
+### Complex Analysis
+
+Claude excels at nuanced analysis:
+
+```
+=AITEXT("Analyze the pros and cons of this business strategy: " & A1)
+```
+
+### Long-Form Content
+
+Generate detailed, well-structured content:
+
+```
+=AITEXT("Write a comprehensive guide to " & A1)
+```
+
+### Code Generation
+
+Strong at generating and explaining code:
+
+```
+=AITEXT("Write a Python function that " & A1)
+```
+
+### Document Processing
+
+Handle long documents effectively:
+
+```
+=AITEXT("Summarize the key points from this document: " & VISIT(A1))
+```
+
+### Instruction Following
+
+Claude follows complex instructions precisely:
+
+```
+=AITEXT("Format this data as a markdown table with columns for Name, Price, and Rating. Only include items over $50. Data: " & A1)
+```
+
+## Advantages
+
+- **Reasoning**: Excellent at multi-step reasoning
+- **Nuance**: Thoughtful, balanced responses
+- **Instructions**: Follows detailed instructions well
+- **Safety**: Built with responsible AI principles
+- **Context**: Large context window
+- **Quality**: High-quality prose and explanations
+
+## Limitations
+
+- Text only (no images, audio, or video)
+- No vision capabilities
+- May be more cautious/conservative in some outputs
+- Slightly slower than some alternatives
+
+## Pricing
+
+Claude offers tiered pricing based on:
+- Model selection (Opus > Sonnet > Haiku)
+- Input tokens
+- Output tokens
+
+Check [Anthropic Pricing](https://www.anthropic.com/pricing) for current rates.
+
+<Tip>
+Use Claude 3.5 Haiku for simple tasks to reduce costs, and Claude 3.5 Sonnet or Claude 4 for complex tasks requiring high quality.
+</Tip>
+
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| Rate limited | Check account tier limits |
+| API key invalid | Regenerate in Anthropic console |
+| Response cut off | Increase max_tokens setting |
+| Slow responses | Try Haiku for faster results |

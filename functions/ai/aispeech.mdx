@@ -1,0 +1,198 @@
+---
+title: "AISPEECH"
+description: "Convert text to natural-sounding speech audio files"
+---
+
+## Syntax
+
+```
+=AISPEECH(text, [voice])
+```
+
+## Parameters
+
+<ParamField path="text" type="string" required>
+  The text to convert to speech. Can be a cell reference or literal text.
+</ParamField>
+
+<ParamField path="voice" type="string" default="alloy">
+  The voice to use for speech synthesis. See available voices below.
+</ParamField>
+
+## Returns
+
+A Google Drive URL to the generated MP3 audio file.
+
+## Requirements
+
+- OpenAI API key configured
+- Google Drive access for file storage
+
+## Available Voices
+
+| Voice | Characteristics |
+|-------|-----------------|
+| `alloy` | Neutral, balanced (default) |
+| `ash` | Clear, confident |
+| `ballad` | Expressive, melodic |
+| `coral` | Warm, friendly |
+| `echo` | Warm, conversational |
+| `fable` | Expressive, storytelling |
+| `nova` | Friendly, upbeat |
+| `onyx` | Deep, authoritative |
+| `sage` | Wise, measured |
+| `shimmer` | Clear, professional |
+| `verse` | Dynamic, engaging |
+
+## Examples
+
+### Basic Usage
+
+```
+=AISPEECH("Welcome to our store. We're glad you're here.")
+```
+
+**Result:** `https://drive.google.com/file/d/xyz789.../view`
+
+### With Specific Voice
+
+```
+=AISPEECH("Breaking news: Scientists discover new species.", "onyx")
+```
+
+Uses the deep, authoritative "onyx" voice.
+
+### From Cell Reference
+
+```
+=AISPEECH(A1, "nova")
+```
+
+Converts the text in cell A1 to speech using the "nova" voice.
+
+## Use Cases
+
+### Voiceovers & Narration
+
+<CodeGroup>
+```text Presentation Narration
+=AISPEECH("In this section, we'll explore our quarterly results...", "shimmer")
+```
+
+```text Video Narration
+=AISPEECH(A1, "fable")
+```
+</CodeGroup>
+
+### Accessibility
+
+<CodeGroup>
+```text Document Reading
+=AISPEECH("Important notice: " & A1, "alloy")
+```
+
+```text Instructions
+=AISPEECH("Step 1: " & A1 & ". Step 2: " & B1, "coral")
+```
+</CodeGroup>
+
+### Learning & Education
+
+<CodeGroup>
+```text Language Learning
+=AISPEECH("Buenos días, ¿cómo estás?", "nova")
+```
+
+```text Pronunciation Guide
+=AISPEECH(A1, "echo")
+```
+</CodeGroup>
+
+### Content Creation
+
+<CodeGroup>
+```text Podcast Intro
+=AISPEECH("Welcome to the Tech Talk podcast, episode " & A1, "onyx")
+```
+
+```text Audio Articles
+=AISPEECH(A1, "sage")
+```
+</CodeGroup>
+
+## Choosing the Right Voice
+
+| Content Type | Recommended Voice |
+|--------------|-------------------|
+| Professional narration | `shimmer`, `alloy` |
+| Storytelling | `fable`, `ballad` |
+| News/Announcements | `onyx`, `ash` |
+| Friendly/Casual | `nova`, `coral` |
+| Educational | `sage`, `echo` |
+| Dynamic content | `verse` |
+
+## Batch Processing
+
+Generate audio for multiple text entries:
+
+| A | B |
+|---|---|
+| Text content 1 | `=AISPEECH(A1, "alloy")` |
+| Text content 2 | `=AISPEECH(A2, "alloy")` |
+| Text content 3 | `=AISPEECH(A3, "alloy")` |
+
+Drag the formula down to process multiple rows.
+
+## Working with Generated Audio
+
+### Playing Audio
+
+Click the Google Drive link to play the audio in your browser.
+
+### Downloading
+
+From Google Drive, click **Download** to save the MP3 file.
+
+### File Details
+
+- Format: MP3
+- Quality: High-fidelity speech synthesis
+- Storage: Your Google Drive
+
+## Tips for Better Results
+
+### 1. Use Natural Punctuation
+
+Punctuation affects pacing and intonation:
+
+```
+=AISPEECH("Hello! How are you today? I hope you're well.", "nova")
+```
+
+### 2. Add Pauses with Commas
+
+```
+=AISPEECH("First, open the app. Then, click the settings icon.", "alloy")
+```
+
+### 3. Test Different Voices
+
+Create comparison samples:
+
+```
+=AISPEECH("This is a test message", "alloy")
+=AISPEECH("This is a test message", "nova")
+=AISPEECH("This is a test message", "onyx")
+```
+
+## Limitations
+
+- OpenAI provider only
+- Maximum text length depends on model limits
+- Generation may take 5-15 seconds
+- Audio files are stored in your Google Drive
+
+## Related Functions
+
+- [AITEXT](/functions/ai/aitext) - Generate text content
+- [AIVIDEO](/functions/ai/aivideo) - Generate video content

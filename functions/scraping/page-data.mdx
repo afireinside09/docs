@@ -1,0 +1,308 @@
+---
+title: "Page Metadata Functions"
+description: "Extract titles, descriptions, headings, and paragraphs from web pages"
+---
+
+## Overview
+
+SheetMagic provides several functions for extracting specific metadata and content elements from web pages.
+
+## GETMETATITLE
+
+Extract the meta title from a webpage.
+
+### Syntax
+
+```
+=GETMETATITLE(url)
+```
+
+### Returns
+
+The page's `<title>` tag content.
+
+### Example
+
+```
+=GETMETATITLE("https://google.com")
+```
+
+**Result:** `Google`
+
+---
+
+## GETMETADESCRIPTION
+
+Extract the meta description from a webpage.
+
+### Syntax
+
+```
+=GETMETADESCRIPTION(url)
+```
+
+### Returns
+
+The page's meta description content.
+
+### Example
+
+```
+=GETMETADESCRIPTION("https://google.com")
+```
+
+**Result:** `Search the world's information, including webpages, images, videos and more...`
+
+---
+
+## GETH1
+
+Extract the first H1 heading from a webpage.
+
+### Syntax
+
+```
+=GETH1(url)
+```
+
+### Returns
+
+The text content of the first `<h1>` tag.
+
+### Example
+
+```
+=GETH1("https://example.com")
+```
+
+**Result:** `Example Domain`
+
+---
+
+## GETH2
+
+Extract all H2 headings from a webpage.
+
+### Syntax
+
+```
+=GETH2(url)
+```
+
+### Returns
+
+A vertical list of all `<h2>` tags.
+
+### Example
+
+```
+=GETH2("https://example.com/article")
+```
+
+**Result:**
+| Cell | Content |
+|------|---------|
+| A1 | Introduction |
+| A2 | Key Concepts |
+| A3 | Implementation |
+| A4 | Conclusion |
+
+---
+
+## GETHEADINGS
+
+Extract all headings (H1-H6) from a webpage.
+
+### Syntax
+
+```
+=GETHEADINGS(url)
+```
+
+### Returns
+
+A vertical list of all heading tags in document order.
+
+### Example
+
+```
+=GETHEADINGS("https://example.com/article")
+```
+
+Returns all H1, H2, H3, H4, H5, and H6 headings.
+
+---
+
+## GETP
+
+Extract all paragraphs from a webpage.
+
+### Syntax
+
+```
+=GETP(url)
+```
+
+### Returns
+
+A vertical list of all `<p>` tag contents.
+
+### Example
+
+```
+=GETP("https://example.com/article")
+```
+
+Returns each paragraph in a separate cell.
+
+---
+
+## PAGEDATA
+
+Get page metadata for multiple URLs at once.
+
+### Syntax
+
+```
+=PAGEDATA(url1, [url2], [...])
+```
+
+### Parameters
+
+<ParamField path="urls" type="string | range" required>
+  One or more URLs. Can be individual URLs, cell references, or a range.
+</ParamField>
+
+### Returns
+
+A table with columns: URL | Title | Meta Description | H1 | Status
+
+### Example
+
+```
+=PAGEDATA(A1:A5)
+```
+
+**Result:**
+
+| URL | Title | Meta Description | H1 | Status |
+|-----|-------|------------------|----|----|
+| https://site1.com | Site 1 Title | Description... | Heading 1 | OK |
+| https://site2.com | Site 2 Title | Description... | Heading 1 | OK |
+
+### With Multiple Individual URLs
+
+```
+=PAGEDATA("https://google.com", "https://github.com", "https://example.com")
+```
+
+---
+
+## Use Cases
+
+### SEO Auditing
+
+<CodeGroup>
+```text Title Tag Analysis
+=GETMETATITLE(A1)
+```
+
+```text Meta Description Check
+=GETMETADESCRIPTION(A1)
+```
+
+```text H1 Verification
+=GETH1(A1)
+```
+</CodeGroup>
+
+### Bulk SEO Analysis
+
+Analyze multiple pages at once:
+
+```
+=PAGEDATA(A1:A20)
+```
+
+### Content Structure Analysis
+
+<CodeGroup>
+```text Heading Hierarchy
+=GETHEADINGS(A1)
+```
+
+```text Content Sections
+=GETH2(A1)
+```
+</CodeGroup>
+
+### Competitor Research
+
+Compare metadata across competitor pages:
+
+| URL | Title | Description |
+|-----|-------|-------------|
+| `=A1` | `=GETMETATITLE(A1)` | `=GETMETADESCRIPTION(A1)` |
+| `=A2` | `=GETMETATITLE(A2)` | `=GETMETADESCRIPTION(A2)` |
+
+### Content Extraction
+
+Extract article structure for analysis:
+
+```
+=AITEXT("Outline the content structure: " & GETHEADINGS(A1))
+```
+
+## Best Practices
+
+### SEO Checklist Workflow
+
+1. List your URLs in column A
+2. Use PAGEDATA for bulk analysis:
+   ```
+   =PAGEDATA(A1:A10)
+   ```
+3. Review titles for length and keywords
+4. Check meta descriptions for completeness
+5. Verify H1 tags are present and relevant
+
+### Character Length Checks
+
+Combine with LEN() to check title length:
+
+```
+=LEN(GETMETATITLE(A1))
+```
+
+Ideal title length: 50-60 characters.
+
+```
+=LEN(GETMETADESCRIPTION(A1))
+```
+
+Ideal description length: 150-160 characters.
+
+### Missing Metadata Detection
+
+```
+=IF(GETMETATITLE(A1)="", "Missing", "OK")
+```
+
+## Error Handling
+
+All metadata functions return empty strings or error messages when:
+- The URL is inaccessible
+- The element doesn't exist on the page
+- The page blocks scraping
+
+Use IFERROR for robust formulas:
+
+```
+=IFERROR(GETMETATITLE(A1), "Could not fetch")
+```
+
+## Related Functions
+
+- [VISIT](/functions/scraping/visit) - Extract full page content
+- [GETSELECTOR](/functions/scraping/selectors) - Extract custom elements
+- [SERP](/functions/scraping/serp) - Search engine results

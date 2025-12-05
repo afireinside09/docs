@@ -1,0 +1,227 @@
+---
+title: "GPTV"
+description: "Analyze images using AI vision to extract information and insights"
+---
+
+## Syntax
+
+```
+=GPTV(imageUrl, [prompt])
+```
+
+## Parameters
+
+<ParamField path="imageUrl" type="string | cell reference" required>
+  URL of the image to analyze, or a cell reference containing the URL.
+</ParamField>
+
+<ParamField path="prompt" type="string" default="Analyze this image">
+  What to analyze or extract from the image.
+</ParamField>
+
+## Returns
+
+A text description or analysis based on your prompt.
+
+## Requirements
+
+- OpenAI API key configured
+- GPT-4o or compatible vision model selected
+- Image URL must be publicly accessible
+
+## Examples
+
+### Basic Image Analysis
+
+```
+=GPTV("https://example.com/product.jpg")
+```
+
+**Result:** "This image shows a black leather messenger bag with silver buckles..."
+
+### Specific Analysis
+
+```
+=GPTV(A1, "What colors are in this image?")
+```
+
+Analyzes the image URL in cell A1 and describes the colors.
+
+### Data Extraction
+
+```
+=GPTV("https://example.com/chart.png", "Extract all data points from this chart")
+```
+
+## Use Cases
+
+### Product Analysis
+
+<CodeGroup>
+```text Product Description
+=GPTV(A1, "Write a product description based on this image")
+```
+
+```text Feature Extraction
+=GPTV(A1, "List all visible features of this product")
+```
+
+```text Competitor Analysis
+=GPTV(A1, "What brand is this product and what are its key features?")
+```
+</CodeGroup>
+
+### Data Extraction
+
+<CodeGroup>
+```text Chart Analysis
+=GPTV(A1, "Extract all data values from this bar chart")
+```
+
+```text Table OCR
+=GPTV(A1, "Convert this table image to CSV format")
+```
+
+```text Receipt Parsing
+=GPTV(A1, "Extract merchant name, date, items, and total from this receipt")
+```
+</CodeGroup>
+
+### Content Moderation
+
+<CodeGroup>
+```text Content Check
+=GPTV(A1, "Is this image appropriate for a professional website? Answer Yes or No")
+```
+
+```text Brand Compliance
+=GPTV(A1, "Does this image follow brand guidelines: logo visible, professional setting?")
+```
+</CodeGroup>
+
+### Accessibility
+
+<CodeGroup>
+```text Alt Text Generation
+=GPTV(A1, "Write a concise alt text description for this image")
+```
+
+```text Detailed Description
+=GPTV(A1, "Describe this image in detail for someone who cannot see it")
+```
+</CodeGroup>
+
+### Research & Analysis
+
+<CodeGroup>
+```text Object Identification
+=GPTV(A1, "Identify all objects in this image")
+```
+
+```text Scene Analysis
+=GPTV(A1, "Describe the setting, mood, and key elements of this scene")
+```
+
+```text Technical Analysis
+=GPTV(A1, "What camera settings were likely used for this photo?")
+```
+</CodeGroup>
+
+## Writing Effective Prompts
+
+### Be Specific About Output Format
+
+<CodeGroup>
+```text List Format
+=GPTV(A1, "List all products visible in this image, one per line")
+```
+
+```text JSON Format
+=GPTV(A1, "Extract name, price, and color as JSON")
+```
+
+```text Single Word
+=GPTV(A1, "What is the dominant color? Answer with one word only")
+```
+</CodeGroup>
+
+### Ask Focused Questions
+
+```
+=GPTV(A1, "How many people are in this image?")
+```
+
+### Request Comparisons
+
+```
+=GPTV(A1, "Compare this product image to typical competitor products in terms of design")
+```
+
+## Supported Image Types
+
+| Format | Supported |
+|--------|-----------|
+| JPEG | Yes |
+| PNG | Yes |
+| GIF | Yes (first frame) |
+| WebP | Yes |
+| BMP | Yes |
+
+## URL Requirements
+
+The image URL must be:
+- Publicly accessible (no authentication required)
+- Direct link to an image file
+- HTTPS preferred for security
+
+### Working with Google Drive Images
+
+For images in Google Drive, use the direct download URL format:
+```
+https://drive.google.com/uc?id=FILE_ID
+```
+
+## Batch Processing
+
+Analyze multiple images efficiently:
+
+| A (Image URL) | B (Analysis) |
+|---------------|--------------|
+| `https://...image1.jpg` | `=GPTV(A1, "Describe this")` |
+| `https://...image2.jpg` | `=GPTV(A2, "Describe this")` |
+
+## Tips for Better Results
+
+### 1. Zoom In on Details
+
+For detailed analysis, use cropped or zoomed images:
+
+```
+=GPTV(A1, "Read the text on the product label")
+```
+
+### 2. Provide Context
+
+```
+=GPTV(A1, "This is a photo of our store. Count the number of customers visible")
+```
+
+### 3. Handle Uncertainty
+
+```
+=GPTV(A1, "If you can identify the brand, name it. If not, respond 'Unknown'")
+```
+
+## Limitations
+
+- Image must be publicly accessible via URL
+- Large images may be resized
+- Some image content may be restricted
+- Analysis quality depends on image clarity
+- OpenAI provider only
+
+## Related Functions
+
+- [AIIMAGE](/functions/ai/aiimage) - Generate images from descriptions
+- [AITEXT](/functions/ai/aitext) - Process text based on image analysis
+- [GETIMG](/functions/scraping/images) - Extract image URLs from web pages

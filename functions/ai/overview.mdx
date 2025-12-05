@@ -1,0 +1,130 @@
+---
+title: "AI Functions Overview"
+description: "Generate text, images, audio, and video with AI-powered spreadsheet functions"
+---
+
+## Introduction
+
+SheetMagic provides custom Google Sheets functions that connect to AI models. These functions work like any other spreadsheet formula - type them in a cell and get results automatically.
+
+## Available AI Functions
+
+<CardGroup cols={2}>
+  <Card title="AITEXT" icon="text" href="/functions/ai/aitext">
+    Generate text content for any prompt.
+  </Card>
+  <Card title="AILIST / AILISTH" icon="list" href="/functions/ai/ailist">
+    Create vertical or horizontal lists.
+  </Card>
+  <Card title="AIIMAGE" icon="image" href="/functions/ai/aiimage">
+    Generate images from descriptions.
+  </Card>
+  <Card title="AISPEECH" icon="volume-high" href="/functions/ai/aispeech">
+    Convert text to natural speech.
+  </Card>
+  <Card title="AIVIDEO" icon="video" href="/functions/ai/aivideo">
+    Generate videos from prompts.
+  </Card>
+  <Card title="GPTV" icon="eye" href="/functions/ai/gptv">
+    Analyze images with AI vision.
+  </Card>
+</CardGroup>
+
+## How AI Functions Work
+
+1. You enter a formula like `=AITEXT("Your prompt")`
+2. SheetMagic sends your request to a processing queue
+3. The AI model generates a response
+4. Results are written back to your cell
+
+<Note>
+AI functions process asynchronously. The cell may briefly show "Loading..." before results appear.
+</Note>
+
+## Common Parameters
+
+Most AI functions accept these parameters:
+
+| Parameter | Description |
+|-----------|-------------|
+| `prompt` | Your instruction or question for the AI |
+| `context` | Optional cell reference or additional text to include |
+
+## Using Context
+
+The optional `context` parameter lets you include data from other cells:
+
+```
+=AITEXT("Summarize this article", A1)
+```
+
+This is equivalent to:
+
+```
+=AITEXT("Summarize this article: " & A1)
+```
+
+## Prompt Best Practices
+
+### Be Specific
+
+<CodeGroup>
+```text Good
+=AITEXT("Write a 50-word product description for wireless Bluetooth earbuds with noise cancellation, targeting fitness enthusiasts")
+```
+
+```text Less Effective
+=AITEXT("Write about earbuds")
+```
+</CodeGroup>
+
+### Specify Format
+
+<CodeGroup>
+```text Structured Output
+=AITEXT("List 3 pros and 3 cons of remote work. Format as bullet points.")
+```
+
+```text JSON Output
+=AITEXT("Extract the name, email, and phone from this text. Return as JSON: " & A1)
+```
+</CodeGroup>
+
+### Set Constraints
+
+```
+=AITEXT("Explain quantum computing in exactly 2 sentences for a 10-year-old")
+```
+
+## Processing Limits
+
+| Limit | Value |
+|-------|-------|
+| Max prompt length | 50,000 characters |
+| Max concurrent requests | Based on license tier |
+| Request timeout | 5 minutes (video may be longer) |
+
+## Error Handling
+
+Common error messages and solutions:
+
+| Error | Solution |
+|-------|----------|
+| `Invalid SheetMagic License Key` | Verify your license key in settings |
+| `Please set your API key` | Add an API key for your provider |
+| `Rate limit exceeded` | Wait a moment and try again |
+| `Model not available` | Check your provider subscription |
+
+## Provider-Specific Features
+
+Different providers offer different capabilities:
+
+| Feature | OpenAI | Gemini | Claude | OpenRouter | Straico |
+|---------|--------|--------|--------|------------|---------|
+| Text | Yes | Yes | Yes | Yes | Yes |
+| Images | Yes | Yes | No | Yes | Yes |
+| Speech | Yes | No | No | No | No |
+| Video | Yes | Yes | No | No | No |
+| Vision | Yes | No | No | No | No |
+
+See [AI Providers](/providers/overview) for detailed provider information.

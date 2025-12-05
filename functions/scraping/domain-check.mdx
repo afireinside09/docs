@@ -1,0 +1,202 @@
+---
+title: "DOMAINCHECK"
+description: "Check if a domain name is available for registration"
+---
+
+## Syntax
+
+```
+=DOMAINCHECK(domain)
+```
+
+## Parameters
+
+<ParamField path="domain" type="string | cell reference" required>
+  The domain name to check (e.g., "example.com").
+</ParamField>
+
+## Returns
+
+One of three values:
+- `TAKEN` - Domain is registered
+- `AVAILABLE` - Domain is not registered
+- `ERROR: [reason]` - Check failed
+
+## Examples
+
+### Basic Check
+
+```
+=DOMAINCHECK("google.com")
+```
+
+**Result:** `TAKEN`
+
+### Check Available Domain
+
+```
+=DOMAINCHECK("my-unique-startup-name-2024.com")
+```
+
+**Result:** `AVAILABLE`
+
+### From Cell Reference
+
+```
+=DOMAINCHECK(A1)
+```
+
+Checks the domain in cell A1.
+
+## Supported TLDs
+
+### Generic TLDs
+
+| TLD | Supported |
+|-----|-----------|
+| .com | Yes |
+| .net | Yes |
+| .org | Yes |
+| .info | Yes |
+| .biz | Yes |
+| .name | Yes |
+
+### Country-Code TLDs
+
+| TLD | Country |
+|-----|---------|
+| .io | British Indian Ocean Territory |
+| .ai | Anguilla |
+| .co | Colombia |
+| .tv | Tuvalu |
+| .me | Montenegro |
+| .uk | United Kingdom |
+| .ca | Canada |
+| .de | Germany |
+| .fr | France |
+| .eu | European Union |
+| .us | United States |
+
+### New gTLDs
+
+| TLD | Supported |
+|-----|-----------|
+| .app | Yes |
+| .dev | Yes |
+| .cloud | Yes |
+| .xyz | Yes |
+
+## Use Cases
+
+### Brand Name Research
+
+Check availability across multiple TLDs:
+
+| Domain | Status |
+|--------|--------|
+| `=A1 & ".com"` | `=DOMAINCHECK(A1 & ".com")` |
+| `=A1 & ".io"` | `=DOMAINCHECK(A1 & ".io")` |
+| `=A1 & ".ai"` | `=DOMAINCHECK(A1 & ".ai")` |
+
+Where A1 contains your desired brand name.
+
+### Bulk Domain Research
+
+Generate domain variations:
+
+| A (Base Name) | B (.com) | C (.io) | D (.ai) |
+|---------------|----------|---------|---------|
+| brandname | `=DOMAINCHECK(A1&".com")` | `=DOMAINCHECK(A1&".io")` | `=DOMAINCHECK(A1&".ai")` |
+
+### Domain Investment Research
+
+Check a list of potential domains:
+
+| Domain | Status |
+|--------|--------|
+| premium-domain.com | `=DOMAINCHECK(A1)` |
+| another-domain.io | `=DOMAINCHECK(A2)` |
+
+### Startup Name Validation
+
+Combine with AI to generate and check names:
+
+1. Generate names: `=AILIST("10 startup names for a productivity app")`
+2. Check availability: `=DOMAINCHECK(A1 & ".com")`
+
+## How It Works
+
+DOMAINCHECK uses the RDAP (Registration Data Access Protocol) to query domain registries:
+
+1. Parses the TLD from your domain
+2. Queries the appropriate RDAP registry
+3. Returns availability status
+
+<Note>
+RDAP is the modern replacement for WHOIS, providing standardized, official responses from domain registries.
+</Note>
+
+## Tips for Better Results
+
+### 1. Check Multiple TLDs
+
+Don't just check .com:
+
+```
+=DOMAINCHECK("mybrand.com")
+=DOMAINCHECK("mybrand.io")
+=DOMAINCHECK("mybrand.ai")
+=DOMAINCHECK("mybrand.app")
+```
+
+### 2. Handle Results Programmatically
+
+```
+=IF(DOMAINCHECK(A1)="AVAILABLE", "Register now!", "Try another name")
+```
+
+### 3. Create a Domain Availability Dashboard
+
+| Name | .com | .io | .ai | Best Option |
+|------|------|-----|-----|-------------|
+| mybrand | `=DOMAINCHECK(...)` | `=DOMAINCHECK(...)` | `=DOMAINCHECK(...)` | `=IF(B1="AVAILABLE",...)` |
+
+## Error Handling
+
+### Common Errors
+
+| Error | Cause | Solution |
+|-------|-------|----------|
+| `ERROR: Invalid domain` | Malformed domain name | Check domain syntax |
+| `ERROR: Unsupported TLD` | TLD not in supported list | Try a supported TLD |
+| `ERROR: Query failed` | Network or registry issue | Try again later |
+
+### Using IFERROR
+
+```
+=IFERROR(DOMAINCHECK(A1), "Check failed")
+```
+
+## Limitations
+
+- Only checks domain registration, not trademark conflicts
+- Some new TLDs may not be supported
+- Results may be cached for performance
+- Premium domains may show as available but have special pricing
+- Does not check subdomain availability
+
+## Important Notes
+
+<Warning>
+Domain availability can change quickly. Always verify availability directly with a registrar before making business decisions.
+</Warning>
+
+- Results reflect registration status only
+- Trademark research is still recommended
+- Premium domain pricing varies by registrar
+- Some domains may be reserved or restricted
+
+## Related Functions
+
+- [AILIST](/functions/ai/ailist) - Generate domain name ideas
+- [AITEXT](/functions/ai/aitext) - Generate brand names

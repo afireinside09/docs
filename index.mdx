@@ -1,97 +1,97 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: "Welcome to SheetMagic"
+description: "AI-powered functions for Google Sheets. Generate text, images, audio, video, and scrape the web - all from your spreadsheet."
 ---
 
-## Setting up
+## What is SheetMagic?
 
-Get your documentation site up and running in minutes.
+SheetMagic is a Google Sheets add-on that brings the power of AI directly into your spreadsheets. Use simple formulas to generate content, analyze data, create images, produce audio, and extract information from the web.
 
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
-
-## Make it yours
-
-Design a docs site that looks great and empowers your users.
-
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
+<CardGroup cols={2}>
+  <Card title="AI Text Generation" icon="wand-magic-sparkles" href="/functions/ai/aitext">
+    Generate text content using GPT-4, Claude, Gemini, and more with a simple formula.
   </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
+  <Card title="Image Generation" icon="image" href="/functions/ai/aiimage">
+    Create AI-generated images from text descriptions using DALL-E or Gemini.
   </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
+  <Card title="Web Scraping" icon="globe" href="/functions/scraping/overview">
+    Extract content, metadata, and search results from any website.
   </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
+  <Card title="Multiple Providers" icon="server" href="/providers/overview">
+    Choose from OpenAI, Google Gemini, Anthropic Claude, OpenRouter, and Straico.
   </Card>
-</Columns>
+</CardGroup>
 
-## Create beautiful pages
+## Quick Start
 
-Everything you need to create world-class documentation.
+Get started with SheetMagic in three steps:
 
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
+<Steps>
+  <Step title="Install the Add-on">
+    Install SheetMagic from the [Google Workspace Marketplace](https://workspace.google.com/marketplace).
+  </Step>
+  <Step title="Configure Your API Key">
+    Open **Extensions > SheetMagic > Open AI Settings** and add your API key for your preferred provider.
+  </Step>
+  <Step title="Start Using AI Functions">
+    Type `=AITEXT("Your prompt here")` in any cell to generate AI content.
+  </Step>
+</Steps>
 
-## Need inspiration?
+## Available Functions
 
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+### AI Functions
+
+| Function | Description |
+|----------|-------------|
+| `=AITEXT(prompt)` | Generate text content |
+| `=AILIST(prompt)` | Generate a vertical list |
+| `=AILISTH(prompt)` | Generate a horizontal list |
+| `=AIIMAGE(description)` | Generate images |
+| `=AISPEECH(text, voice)` | Convert text to speech |
+| `=AIVIDEO(description)` | Generate videos |
+| `=GPTV(imageUrl, prompt)` | Analyze images with AI vision |
+
+### Web Scraping Functions
+
+| Function | Description |
+|----------|-------------|
+| `=VISIT(url)` | Extract clean text from a webpage |
+| `=SERP(query)` | Search the web and return results |
+| `=PAGEDATA(urls)` | Get metadata for multiple URLs |
+| `=GETSELECTOR(url, selector)` | Extract elements using CSS selectors |
+| `=GETIMG(url)` | Extract all image URLs from a page |
+| `=DOMAINCHECK(domain)` | Check domain availability |
+
+## Supported AI Providers
+
+SheetMagic supports multiple AI providers, giving you flexibility in choosing the best model for your needs:
+
+<CardGroup cols={3}>
+  <Card title="OpenAI" icon="robot" href="/providers/openai">
+    GPT-4o, GPT-5, DALL-E, Sora
+  </Card>
+  <Card title="Google Gemini" icon="google" href="/providers/gemini">
+    Gemini 2.5, Veo 3
+  </Card>
+  <Card title="Anthropic Claude" icon="brain" href="/providers/claude">
+    Claude 3.5, Claude 4
+  </Card>
+  <Card title="OpenRouter" icon="route" href="/providers/openrouter">
+    100+ models via single API
+  </Card>
+  <Card title="Straico" icon="layer-group" href="/providers/straico">
+    Multiple models, simple pricing
+  </Card>
+</CardGroup>
+
+## Need Help?
+
+<CardGroup cols={2}>
+  <Card title="Installation Guide" icon="download" href="/guides/installation">
+    Step-by-step installation instructions.
+  </Card>
+  <Card title="Configuration" icon="gear" href="/guides/configuration">
+    Configure providers, models, and settings.
+  </Card>
+</CardGroup>

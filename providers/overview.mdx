@@ -1,0 +1,140 @@
+---
+title: "AI Providers Overview"
+description: "Choose from multiple AI providers for text, image, speech, and video generation"
+---
+
+## Supported Providers
+
+SheetMagic integrates with five AI providers, each offering different models and capabilities.
+
+<CardGroup cols={2}>
+  <Card title="OpenAI" icon="robot" href="/providers/openai">
+    GPT-4o, GPT-5, DALL-E, Sora, TTS
+  </Card>
+  <Card title="Google Gemini" icon="google" href="/providers/gemini">
+    Gemini 2.5, Veo 3 video
+  </Card>
+  <Card title="Anthropic Claude" icon="brain" href="/providers/claude">
+    Claude 3.5, Claude 4
+  </Card>
+  <Card title="OpenRouter" icon="route" href="/providers/openrouter">
+    100+ models, single API
+  </Card>
+  <Card title="Straico" icon="layer-group" href="/providers/straico">
+    Multiple models, simple pricing
+  </Card>
+</CardGroup>
+
+## Capabilities Matrix
+
+| Capability | OpenAI | Gemini | Claude | OpenRouter | Straico |
+|------------|--------|--------|--------|------------|---------|
+| Text Generation | Yes | Yes | Yes | Yes | Yes |
+| Image Generation | Yes | Yes | No | Yes | Yes |
+| Speech Synthesis | Yes | No | No | No | No |
+| Video Generation | Yes | Yes | No | No | No |
+| Vision Analysis | Yes | No | No | No | No |
+
+## Choosing a Provider
+
+### For General Text
+
+All providers offer high-quality text generation. Consider:
+
+| If You Need | Recommended |
+|-------------|-------------|
+| Best overall quality | OpenAI GPT-4o, Claude 3.5 Sonnet |
+| Fastest responses | OpenAI GPT-4o-mini, Gemini Flash |
+| Complex reasoning | Claude 3.5 Sonnet, OpenAI o3 |
+| Lowest cost | OpenAI GPT-4o-mini, Straico |
+| Model variety | OpenRouter |
+
+### For Images
+
+| Provider | Models | Best For |
+|----------|--------|----------|
+| OpenAI | DALL-E 3, GPT-Image-1 | High quality, consistent style |
+| Gemini | Gemini Flash Image | Google ecosystem |
+| OpenRouter | Multiple | Access to various models |
+| Straico | Multiple | Simple pricing |
+
+### For Audio
+
+Only OpenAI supports text-to-speech:
+- 11 voice options
+- High-fidelity output
+- Multiple languages
+
+### For Video
+
+| Provider | Models | Notes |
+|----------|--------|-------|
+| OpenAI | Sora 2, Sora 2 Pro | Requires organization verification |
+| Gemini | Veo 3, Veo 3 Fast | Google ecosystem |
+
+## Setting Up a Provider
+
+<Steps>
+  <Step title="Get API Key">
+    Create an account with your chosen provider and generate an API key.
+  </Step>
+  <Step title="Add to SheetMagic">
+    Go to **Extensions > SheetMagic > Manage AI API Keys** and add your key.
+  </Step>
+  <Step title="Select Provider">
+    Open **Extensions > SheetMagic > Open AI Settings** and select your provider.
+  </Step>
+  <Step title="Choose Model">
+    Select your preferred model from the dropdown.
+  </Step>
+</Steps>
+
+## API Key Security
+
+<Warning>
+Never share your API keys. SheetMagic stores keys securely in your Google account's script properties, encrypted and accessible only to you.
+</Warning>
+
+Best practices:
+- Use separate API keys for SheetMagic
+- Set spending limits with your provider
+- Rotate keys periodically
+- Monitor usage in your provider dashboard
+
+## Pricing Comparison
+
+Pricing varies by provider and model. Check each provider's pricing page for current rates:
+
+- [OpenAI Pricing](https://openai.com/pricing)
+- [Google AI Pricing](https://ai.google.dev/pricing)
+- [Anthropic Pricing](https://www.anthropic.com/pricing)
+- [OpenRouter Pricing](https://openrouter.ai/docs#models)
+- [Straico Pricing](https://straico.com/pricing)
+
+<Tip>
+Start with a provider offering free credits or a trial to test SheetMagic before committing to a paid plan.
+</Tip>
+
+## Switching Providers
+
+You can switch providers at any time:
+
+1. Add the new provider's API key
+2. Select the new provider in settings
+3. Choose a model
+
+Existing formulas will use the new provider on their next execution.
+
+## Rate Limits
+
+Each provider has different rate limits:
+
+| Provider | Typical Limits |
+|----------|---------------|
+| OpenAI | Varies by tier |
+| Gemini | Varies by tier |
+| Claude | Varies by tier |
+| OpenRouter | Pooled limits |
+| Straico | Based on plan |
+
+SheetMagic handles rate limiting automatically by queuing requests and retrying when limits are exceeded.

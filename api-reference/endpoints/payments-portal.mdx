@@ -1,0 +1,77 @@
+---
+title: "Create Customer Portal Session"
+api: "POST /payments/portal"
+description: "Create a Stripe customer portal session for subscription management"
+---
+
+## Request
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token from Supabase Auth
+</ParamField>
+
+<ParamField body="return_url" type="string">
+  URL to redirect after exiting portal
+</ParamField>
+
+## Response
+
+<ResponseField name="url" type="string">
+  Customer portal URL
+</ResponseField>
+
+## Example
+
+<CodeGroup>
+```bash cURL
+curl -X POST "https://api.sheetmagic.ai/payments/portal" \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "return_url": "https://sheetmagic.ai/dashboard"
+  }'
+```
+
+```javascript JavaScript
+const response = await fetch('https://api.sheetmagic.ai/payments/portal', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer <token>',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    return_url: 'https://sheetmagic.ai/dashboard'
+  })
+});
+const data = await response.json();
+
+// Redirect to portal
+window.location.href = data.url;
+```
+</CodeGroup>
+
+## Response Example
+
+```json
+{
+  "url": "https://billing.stripe.com/session/abc123"
+}
+```
+
+## Portal Features
+
+The customer portal allows users to:
+
+- View and update payment methods
+- View invoice history
+- Download invoices
+- Update billing information
+- Cancel subscriptions
+- Change subscription plan
+
+## Errors
+
+| Status | Description |
+|--------|-------------|
+| 401 | Invalid or missing token |
+| 500 | Server error |
